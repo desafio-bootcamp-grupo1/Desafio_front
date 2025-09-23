@@ -1,7 +1,24 @@
+// authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { api } from "./src/features/api";
-import { setAccessToken, clearAccessToken } from "./src/lib/token";
+import { api } from "@/lib/api";
+import { setAccessToken, clearAccessToken } from "@/lib/token";
 
+// Thunk para login
+export const loginThunk = createAsyncThunk(
+  "auth/login",
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const { data } = await api.post("/auth/login", { email, password });
+      if (!data?.accessToken) throw new Error("NO_ACCESS");
+      setAccessToken(data.accessToken);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "LOGIN_FAIL");
+    }
+  }
+);
+
+// Thunk para bootstrapSession (ya lo tenías)
 export const bootstrapSession = createAsyncThunk(
   "auth/bootstrapSession",
   async (_, { rejectWithValue }) => {
@@ -28,7 +45,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // forzar logout desde cualquier sitio si hay error de tokens (?)
     authHardLogout(state) {
       state.user = null;
       state.ready = true;
@@ -38,7 +54,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      //bootstrap (no lo de CSS xd) para auto cookies por http
+      // bootstrap
       .addCase(bootstrapSession.pending, (state) => {
         state.ready = false;
         state.error = null;
@@ -60,7 +76,6 @@ const authSlice = createSlice({
         state.user = null;
         state.error = action.payload || "LOGIN_FAIL";
       });
-    //añadir logout y register
   },
 });
 

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { getAccessToken, setAccessToken } from "./src/lib/token";
-import { authHardLogout } from "./src/features/auth/auth.slice"; //por si falla el refresh
+import { getAccessToken, setAccessToken } from "./token";
+import { authHardLogout } from "../features/auth/authSlice"; //por si falla el refresh
 
 const AUTH_PATHS = [/\/auth\/login\b/, /\/auth\/register\b/, /\/auth\/refresh-token\b/, /\/auth\/logout\b/];
 const isAuthPath = (url) => Boolean(url) && AUTH_PATHS.some((re) => re.test(url));
