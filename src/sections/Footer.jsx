@@ -8,9 +8,11 @@ export default function Footer() {
         <div className="footer__brand">
           <Logo size="sm" />
           <span className="footer__divider" />
-          <p className="footer__tagline">Smart Mobility Intelligence</p>
+          <p className="footer__tagline">Organiza,
+Simplifica,
+Ahorra.</p>
         </div>
-        <div className="footer__copy">© 2024 OnTrack. Todos los derechos reservados.</div>
+        <div className="footer__copy">© 2025 OnTrack. Todos los derechos reservados.</div>
       </div>
     </footer>
   );

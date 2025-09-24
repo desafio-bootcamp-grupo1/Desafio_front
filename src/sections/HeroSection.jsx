@@ -8,7 +8,7 @@ export default function HeroSection({ onStart, onLogin }) {
       <div className="hero__overlay" />
       <div className="container hero__inner">
         <div className="hero__content">
-          <Logo size="lg" className="hero__logo" />
+          <Logo size="xl" className="hero__logo" />
           <h1 className="hero__title">
             <span>Organiza,</span><br/>
             <span>Simplifica,</span><br/>
