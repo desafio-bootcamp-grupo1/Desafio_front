@@ -1,6 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Josefin+Sans:wght@700;800&display=swap');
-@import "./_variables";
-@import "./_mixins";
+// Bring vars & mixins into this file's scope
+@use "./_variables" as *;
+@use "./_mixins" as *;
+
+/* Use the new module system to include component/section styles */
+@use "./components/_button";
+@use "./components/_card";
+@use "./components/_chip";
+
+@use "./sections/_hero";
+@use "./sections/_features";
+@use "./sections/_stats";
+@use "./sections/_cta";
+@use "./sections/_footer";
 
 /* Reset-ish */
 * { box-sizing: border-box; }
@@ -21,13 +32,3 @@ body {
 .section--muted { background: var(--gray-light); }
 .section__title { font-size: 2.25rem; font-weight: 700; margin: 0 0 .5rem; }
 .section__subtitle { color: var(--gray-500); font-size: 1.125rem; max-width: 720px; margin: 0 auto 2.5rem; text-align: center; }
-
-@import "./components/_button";
-@import "./components/_card";
-@import "./components/_chip";
-
-@import "./sections/_hero";
-@import "./sections/_features";
-@import "./sections/_stats";
-@import "./sections/_cta";
-@import "./sections/_footer";

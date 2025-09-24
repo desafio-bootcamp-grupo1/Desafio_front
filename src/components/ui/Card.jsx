@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/components/_card.scss";
+// import "../../styles/components/_card.scss";
 
 export function Card({ className = "", children, ...props }) {
   return (

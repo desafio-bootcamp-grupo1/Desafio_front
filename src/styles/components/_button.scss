@@ -1,43 +1,45 @@
+@use "../_variables" as *;
+@use "../_mixins" as *;
+
 .btn {
     --bg: var(--coral);
     --color: var(--white);
     --border: transparent;
-  
+
     display: inline-flex;
     align-items: center; justify-content: center;
     gap: .5rem;
     border: 1px solid var(--border);
     background: var(--bg);
     color: var(--color);
-    border-radius: $radius-md;
+    border-radius: $radius-md;      // now defined
     font-weight: 600;
     cursor: pointer;
     transition: transform $transition-fast, background $transition-fast, color $transition-fast, border-color $transition-fast;
-  
+
     &--sm { padding: .5rem .9rem; font-size: .9rem; }
     &--md { padding: .75rem 1.15rem; font-size: 1rem; }
     &--lg { padding: 1rem 1.5rem; font-size: 1.125rem; border-radius: $radius-lg; }
-  
+
     &:active { transform: translateY(1px); }
-  
+
     &--primary {
-      --bg: var(--coral);
-      --color: var(--white);
-      &:hover { filter: brightness(0.95); }
+        --bg: var(--coral);
+        --color: var(--white);
+        &:hover { filter: brightness(0.95); }
     }
-  
+
     &--light {
-      --bg: var(--white);
-      --color: var(--coral);
-      --border: var(--white);
-      &:hover { background: #fafafa; }
+        --bg: var(--white);
+        --color: var(--coral);
+        --border: var(--white);
+        &:hover { background: #fafafa; }
     }
-  
+
     &--outline {
-      --bg: transparent;
-      --color: var(--white);
-      --border: rgba(255,255,255,.9);
-      &:hover { background: var(--white); color: var(--coral); }
+        --bg: transparent;
+        --color: var(--white);
+        --border: rgba(255,255,255,.9);
+        &:hover { background: var(--white); color: var(--coral); }
     }
-  }
-  
+}
