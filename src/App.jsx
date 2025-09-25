@@ -1,14 +1,23 @@
 import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import LoginForm from "./components/login/LoginForm";
+import Index from "./pages/Index";
+import "./styles/base.scss";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
 
   return (
     <>
-      <Home onLoginClick={() => setShowLogin(true)} />
-      {showLogin && <LoginForm onClose={() => setShowLogin(false)} />}
+      <Router>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/login" element={<LoginForm onClose={() => setShowLogin(false)} />} />
+        </Routes>
+      </Router>
+      {/* <Home onLoginClick={() => setShowLogin(true)} />
+      {showLogin && <LoginForm onClose={() => setShowLogin(false)} />} */}
     </>
   );
 }

@@ -1,0 +1,34 @@
+// Bring vars & mixins into this file's scope
+@use "./_variables" as *;
+@use "./_mixins" as *;
+
+/* Use the new module system to include component/section styles */
+@use "./components/_button";
+@use "./components/_card";
+@use "./components/_chip";
+
+@use "./sections/_hero";
+@use "./sections/_features";
+@use "./sections/_stats";
+@use "./sections/_cta";
+@use "./sections/_footer";
+
+/* Reset-ish */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--gray-900);
+  background: var(--gray-light);
+}
+
+/* Utilities */
+.container { @include container; }
+.hidden-visually { position: absolute; clip: rect(1px,1px,1px,1px); padding:0; border:0; height:1px; width:1px; overflow:hidden; }
+
+/* Shared blocks */
+.section { padding-block: 80px; background: var(--white); }
+.section--muted { background: var(--gray-light); }
+.section__title { font-size: 2.25rem; font-weight: 700; margin: 0 0 .5rem; }
+.section__subtitle { color: var(--gray-500); font-size: 1.125rem; max-width: 720px; margin: 0 auto 2.5rem; text-align: center; }
