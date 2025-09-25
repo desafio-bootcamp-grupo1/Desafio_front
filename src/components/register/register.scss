@@ -15,11 +15,33 @@
   padding: $space-lg;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-  width: 320px;
+  width: 340px;  
   max-width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
   position: relative;
   transform: scale(0.9);
   opacity: 0;
+  scrollbar-width: thin; 
+  scrollbar-color: $color-primary rgba(0,0,0,0.1); 
+
+  &::-webkit-scrollbar {
+    width: 6px; 
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-primary; 
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $color-primary-dark; 
+  }
 }
 
 .animate-in {
@@ -50,7 +72,7 @@
 .register-form {
   display: flex;
   flex-direction: column;
-  gap: $space-md;
+  gap: 0.8rem;
   font-family: $font-family-base;
 }
 
@@ -66,10 +88,10 @@
 }
 
 .register-form label {
-  font-size: 14px;
+  font-size: 15px;
+  margin-bottom: 3px;
   display: flex;
   align-items: center;
-  gap: 4px;
 }
 
 .required {
@@ -77,12 +99,18 @@
   cursor: help;
 }
 
-.register-form input {
+.register-form input,
+.register-form select {
   width: 100%;
   border-radius: 6px;
-  padding: $space-xs 0.75rem;
+  padding: $space-xs $space-sm;
   border: 1px solid $color-gray;
   box-sizing: border-box;
+  font-size: 14px;
+}
+
+.register-form input::placeholder {
+  color: $color-gray;
 }
 
 .password-field {
@@ -106,11 +134,10 @@
   background: $color-white;
   border: none;
   cursor: pointer;
+  padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
-  padding: 4px;
 }
 
 .register-btn {
@@ -127,21 +154,37 @@
   background: $color-primary-dark;
 }
 
-.error {
-  color: $color-primary-dark;
-  font-size: 14px;
-}
-
 .privacy-field {
   display: flex;
   align-items: center;
-  gap: $space-xs;
+  justify-content: space-between;
   font-size: 14px;
-  margin-top: $space-sm;
 
   .link {
     color: $color-primary;
     cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.login-link {
+  text-align: center;
+  font-size: 13px;
+  margin-top: $space-sm;
+
+  a {
+    color: $color-primary;
+    font-weight: bold;
+    cursor: pointer;
+
     &:hover {
       text-decoration: underline;
     }
@@ -174,7 +217,8 @@
   }
 
   .password-field input,
-  .register-form input {
+  .register-form input,
+  .register-form select {
     padding: $space-xs 2rem $space-xs $space-xs;
   }
 
