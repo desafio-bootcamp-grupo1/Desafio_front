@@ -19,11 +19,10 @@ export default function LoginForm({ onClose, openRegister }) {
     }
   };
 
-  const goToRegister = () => {
-    onClose();       // cerrar modal actual
-    openRegister();  // abrir modal de registro
-  };
-
+const goToRegister = () => {
+  onClose();      
+  openRegister();  
+};
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal animate-in" onClick={(e) => e.stopPropagation()}>

@@ -1,0 +1,11 @@
+.features {
+    &__head { text-align: center; }
+    &__grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 1fr;
+      @media (min-width: 860px) { grid-template-columns: repeat(3, 1fr); }
+    }
+    .features__card { border: 0; }
+  }
+  
