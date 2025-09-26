@@ -1,41 +1,165 @@
 @use "./variables.scss" as *;
 
-.profile-modal {
-  width: 350px;
-  margin: 50px auto;
+.profile-page {
+  max-width: 900px;
+  margin: 0 auto;
   padding: $space-lg;
-  border-radius: 10px;
-  background: $color-white;
-  box-shadow: 0 4px 12px rgba($color-black, 0.1);
   font-family: $font-family-base;
+}
 
-  .profile-header {
+.perfil-header {
+  text-align: center;
+  margin-bottom: $space-lg;
+
+  h1 {
+    font-size: 1.8rem;
+    color: $color-primary-dark;
+  }
+}
+
+.seccion-perfil {
+  margin-bottom: $space-xl;
+  padding: $space-md;
+  border: 1px solid $color-gray;
+  border-radius: 8px;
+  background-color: $color-white;
+  box-shadow: 0 2px 6px rgba($color-black, 0.05);
+
+  h2 {
+    color: $color-primary;
+    margin-bottom: $space-md;
+    font-size: 1.2rem;
+  }
+
+  .info-usuario {
     display: flex;
-    justify-content: center;
     align-items: center;
+    gap: $space-md;
     margin-bottom: $space-md;
 
-    h2 {
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: $color-primary;
+      color: $color-white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    h3 {
+      margin: 0;
       color: $color-primary-dark;
-      font-size: 1.4rem;
+    }
+
+    p {
+      color: $color-gray-dark;
+    }
+
+    small {
+      color: $color-gray;
     }
   }
 
-  .profile-body {
-    display: flex;
-    flex-direction: column;
+  .campos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: $space-md;
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-weight: bold;
+        margin-bottom: $space-xs;
+        color: $color-gray-dark;
+      }
+
+      input {
+        padding: $space-sm;
+        border: 1px solid $color-gray;
+        border-radius: 6px;
+        background-color: $color-white;
+        color: $color-black;
+      }
+    }
+  }
+}
+
+.preferencias-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $space-sm 0;
+    border-bottom: 1px solid $color-gray;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    strong {
+      color: $color-black;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: $color-gray-dark;
+    }
+  }
+}
+
+/* Toggle switch estilo */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 22px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
   }
 
-  .profile-item {
-    display: flex;
-    align-items: center;
-    gap: $space-sm;
-    font-size: 1rem;
-    color: $color-gray-dark;
+  .slider {
+    position: absolute;
+    cursor: not-allowed; /* solo lectura */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $color-gray;
+    border-radius: 22px;
+    transition: 0.4s;
 
-    svg {
-      color: $color-primary;
+    &:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: $color-white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+  }
+
+  input:checked + .slider {
+    background-color: $color-primary;
+
+    &:before {
+      transform: translateX(20px);
     }
   }
 }

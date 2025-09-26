@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import LoginForm from "./components/login/LoginForm";
@@ -7,24 +6,22 @@ import Index from "./pages/Index";
 import "./styles/base.scss";
 
 function App() {
-  const [showLogin, setShowLogin] = useState(false);
-
   return (
     <Router>
       <Routes>
-        {/* Ruta principal */}
+        {/* Página de inicio */}
         <Route path="/" element={<Index />} />
-          <Route path="/login" element={<LoginForm onClose={() => setShowLogin(false)} />} />
-        {/* Ruta de perfil */}
-        <Route path="/profile" element={<Profile />} />
-       </Routes>
+        
+        {/* Login */}
+        <Route path="/login" element={<LoginForm />} />
 
-      {/* Modal de login (se mantiene igual) */}
-      {/*showLogin && <LoginForm onClose={() => setShowLogin(false)} />*/}
+        {/* Perfil */}
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </Router>
-    
   );
 }
 
 export default App;
+
 
