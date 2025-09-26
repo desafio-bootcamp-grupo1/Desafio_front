@@ -14,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<LoginForm onClose={() => setShowLogin(false)} />} />
+          <Route path="/manager" element={<ManagerDashboard />} />
         </Routes>
       </Router>
       {/* <Home onLoginClick={() => setShowLogin(true)} />
