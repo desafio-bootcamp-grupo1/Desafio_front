@@ -5,43 +5,19 @@
   inset: 0;
   background: rgba(0,0,0,0.4);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 999;
+  align-items: center;
+  overflow: hidden; 
 }
 
 .modal {
-  background: $color-white;
-  padding: $space-lg;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-  width: 340px;  
-  max-width: 95%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-  transform: scale(0.9);
-  opacity: 0;
-  scrollbar-width: thin; 
-  scrollbar-color: $color-primary rgba(0,0,0,0.1); 
-
-  &::-webkit-scrollbar {
-    width: 6px; 
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.05);
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: $color-primary; 
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: $color-primary-dark; 
-  }
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 350px;
+  width: 90%;
+  max-height: 90vh; 
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
 .animate-in {

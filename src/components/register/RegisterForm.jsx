@@ -46,13 +46,6 @@ export default function RegisterForm({ onClose, openLogin }) {
           <label>Correo electrónico<span className="required">*</span></label>
           <input type="email" placeholder="ejemplo@gmail.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
 
-          <label>Selecciona tu perfil<span className="required">*</span></label>
-          <select value={role} onChange={(e) => setRole(e.target.value)} required>
-            <option value="">-- Selecciona --</option>
-            <option value="driver">Conductor</option>
-            <option value="fleetAdmin">Administrador de flota</option>
-          </select>
-
           <label>Contraseña<span className="required">*</span></label>
           <div className="password-field">
             <input type={showPass ? "text" : "password"} placeholder="Mínimo 8 caracteres" value={password} onChange={(e) => setPassword(e.target.value)} required />
