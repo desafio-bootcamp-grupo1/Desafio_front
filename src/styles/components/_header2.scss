@@ -1,31 +1,31 @@
 @use "../_variables" as *;
 
 .header2 {
-  background: linear-gradient(90deg, var(--coral), var(--coral-light));
-  color: var(--white);
+    background: linear-gradient(90deg, var(--coral), var(--coral-light));
+    color: var(--white);
 
-  &__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-block: 14px;
-  }
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-block: 14px;
+    }
 
-  &__nav {
-    display: none;
-    gap: 10px;
-    @media (min-width: 860px) { display: flex; }
-  }
+    &__nav {
+        display: none;
+        gap: 10px;
+        @media (min-width: 860px) { display: flex; }
+    }
 
-  &__nav-btn {
-    --bg: transparent;
-    --color: var(--white);
-    --border: rgba(255,255,255,.6);
-    opacity: .95;
-  }
+    &__nav-btn {
+        --bg: transparent;
+        --color: var(--white);
+        --border: rgba(255,255,255,.6);
+        opacity: .95;
+    }
 
-  &__logout {
-    --color: var(--white);
-    --border: rgba(255,255,255,.6);
-  }
+    &__logout {
+        --color: var(--white);
+        --border: rgba(255,255,255,.6);
+    }
 }
