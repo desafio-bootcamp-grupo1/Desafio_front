@@ -7,7 +7,7 @@
   }
   
   @mixin gradient-hero {
-    background: linear-gradient(135deg, var(--coral), var(--coral-light) 55%, var(--coral-dark));
+    background: linear-gradient(150deg, var(--gray-200) 55%,  var(--coral) 55%);
   }
   
   @mixin shadow-soft {

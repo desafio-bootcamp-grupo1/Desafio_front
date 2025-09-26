@@ -102,6 +102,10 @@
   border: 1px solid $color-gray;
 }
 
+.login-form input::placeholder {
+  color: $color-gray;
+}
+
 .password-field .eye-btn {
   position: absolute;
   right: 4px;

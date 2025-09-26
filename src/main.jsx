@@ -4,8 +4,8 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./app/store";
 import App from "./App.jsx";
 import { bootstrapSession } from "./features/auth/authSlice";
+import { LoadingCar } from "./components/common/LoadingCar.jsx";
 
-//Authgate para poner en marcha el bootstrap al arrancar la app
 function AuthGate({ children }) {
   const dispatch = useDispatch();
   const ready = useSelector((s) => s.auth.ready);
@@ -14,7 +14,7 @@ function AuthGate({ children }) {
     dispatch(bootstrapSession());
   }, [dispatch]);
 
-  if (!ready) return <div style={{ padding: 24 }}>Cargando…</div>;
+  if (!ready) return <LoadingCar />;
   return children;
 }
 
