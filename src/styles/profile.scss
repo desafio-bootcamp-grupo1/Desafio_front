@@ -1,0 +1,41 @@
+@use "./variables.scss" as *;
+
+.profile-modal {
+  width: 350px;
+  margin: 50px auto;
+  padding: $space-lg;
+  border-radius: 10px;
+  background: $color-white;
+  box-shadow: 0 4px 12px rgba($color-black, 0.1);
+  font-family: $font-family-base;
+
+  .profile-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: $space-md;
+
+    h2 {
+      color: $color-primary-dark;
+      font-size: 1.4rem;
+    }
+  }
+
+  .profile-body {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+  }
+
+  .profile-item {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    font-size: 1rem;
+    color: $color-gray-dark;
+
+    svg {
+      color: $color-primary;
+    }
+  }
+}
