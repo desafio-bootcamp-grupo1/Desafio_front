@@ -1,124 +1,7 @@
 @use "./variables.scss" as *;
 
-.profile-page {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: $space-lg;
-  font-family: $font-family-base;
-}
+/* ...tu estilo anterior... */
 
-.perfil-header {
-  text-align: center;
-  margin-bottom: $space-lg;
-
-  h1 {
-    font-size: 1.8rem;
-    color: $color-primary-dark;
-  }
-}
-
-.seccion-perfil {
-  margin-bottom: $space-xl;
-  padding: $space-md;
-  border: 1px solid $color-gray;
-  border-radius: 8px;
-  background-color: $color-white;
-  box-shadow: 0 2px 6px rgba($color-black, 0.05);
-
-  h2 {
-    color: $color-primary;
-    margin-bottom: $space-md;
-    font-size: 1.2rem;
-  }
-
-  .info-usuario {
-    display: flex;
-    align-items: center;
-    gap: $space-md;
-    margin-bottom: $space-md;
-
-    .avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: $color-primary;
-      color: $color-white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: bold;
-      font-size: 1.2rem;
-    }
-
-    h3 {
-      margin: 0;
-      color: $color-primary-dark;
-    }
-
-    p {
-      color: $color-gray-dark;
-    }
-
-    small {
-      color: $color-gray;
-    }
-  }
-
-  .campos-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: $space-md;
-
-    .campo {
-      display: flex;
-      flex-direction: column;
-
-      label {
-        font-weight: bold;
-        margin-bottom: $space-xs;
-        color: $color-gray-dark;
-      }
-
-      input {
-        padding: $space-sm;
-        border: 1px solid $color-gray;
-        border-radius: 6px;
-        background-color: $color-white;
-        color: $color-black;
-      }
-    }
-  }
-}
-
-.preferencias-lista {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-  li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: $space-sm 0;
-    border-bottom: 1px solid $color-gray;
-
-    &:last-child {
-      border-bottom: none;
-    }
-
-    strong {
-      color: $color-black;
-    }
-
-    p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: $color-gray-dark;
-    }
-  }
-}
-
-/* Toggle switch estilo */
 .switch {
   position: relative;
   display: inline-block;
@@ -133,7 +16,7 @@
 
   .slider {
     position: absolute;
-    cursor: not-allowed; /* solo lectura */
+    cursor: pointer;
     top: 0;
     left: 0;
     right: 0;
@@ -156,7 +39,7 @@
   }
 
   input:checked + .slider {
-    background-color: $color-primary;
+    background-color: $color-primary-dark;
 
     &:before {
       transform: translateX(20px);

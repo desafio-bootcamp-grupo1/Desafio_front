@@ -1,31 +1,51 @@
-// src/pages/Profile.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/profile.scss";
 
 export default function Profile() {
-  const [user] = useState({
-    nombre: "Carlos Martínez",
-    empresa: "Constructora Bilbao SL",
-    miembroDesde: "Enero 2014",
-    email: "elminia.rodriguez@gmail.com",
-    telefono: "+34 666 123 456",
-    departamento: "Operaciones",
+  const [user, setUser] = useState(null);
+  const [vehiculo, setVehiculo] = useState({
+    marca: "",
+    modelo: "",
+    año: "",
+    matricula: "",
+    tipoCombustible: "",
   });
 
-  const [vehiculo] = useState({
-    marca: "Toyota",
-    modelo: "Corolla Hybrid",
-    año: "2022",
-    matricula: "1234-ABC",
-    tipoCombustible: "Híbrido",
-  });
-
-  const [preferencias] = useState({
-    notificacionesPush: true,
-    alertasTrafico: true,
+  const [preferencias, setPreferencias] = useState({
+    notificacionesPush: false,
+    alertasTrafico: false,
     reportesSemanales: false,
     modoPrivacidad: false,
   });
+
+  // 🔹 Simulación: obtener datos del backend (fetch a /api/users/me)
+  useEffect(() => {
+    async function fetchUserData() {
+      try {
+        const res = await fetch("http://localhost:4000/api/users/me", {
+          credentials: "include",
+        });
+        const data = await res.json();
+
+        setUser(data.user);
+        if (data.vehiculo) setVehiculo(data.vehiculo);
+        if (data.preferencias) setPreferencias(data.preferencias);
+      } catch (err) {
+        console.error("Error al cargar usuario:", err);
+      }
+    }
+    fetchUserData();
+  }, []);
+
+  const handleVehiculoChange = (e) => {
+    setVehiculo({ ...vehiculo, [e.target.name]: e.target.value });
+  };
+
+  const handlePreferenciaChange = (pref) => {
+    setPreferencias({ ...preferencias, [pref]: !preferencias[pref] });
+  };
+
+  if (!user) return <p>Cargando perfil...</p>;
 
   return (
     <div className="profile-page">
@@ -37,11 +57,16 @@ export default function Profile() {
       <div className="seccion-perfil">
         <h2>🧑‍💼 Información Personal</h2>
         <div className="info-usuario">
-          <div className="avatar">{user.nombre.charAt(0) + user.apellido?.charAt(0) || "CM"}</div>
+          <div className="avatar">
+            {user.nombre.charAt(0)}
+            {user.apellido ? user.apellido.charAt(0) : ""}
+          </div>
           <div>
-            <h3>{user.nombre}</h3>
-            <p>{user.empresa}</p>
-            <small>⭐ Miembro desde {user.miembroDesde}</small>
+            <h3>
+              {user.nombre} {user.apellido}
+            </h3>
+            <p>{user.empresa || "Empresa no registrada"}</p>
+            <small>⭐ Miembro desde {new Date(user.createdAt).toLocaleDateString()}</small>
           </div>
         </div>
 
@@ -56,15 +81,15 @@ export default function Profile() {
           </div>
           <div className="campo">
             <label>Teléfono</label>
-            <input type="tel" value={user.telefono} readOnly />
+            <input type="tel" value={user.telefono || ""} readOnly />
           </div>
           <div className="campo">
             <label>Departamento</label>
-            <input type="text" value={user.departamento} readOnly />
+            <input type="text" value={user.departamento || ""} readOnly />
           </div>
           <div className="campo">
             <label>Empresa</label>
-            <input type="text" value={user.empresa} readOnly />
+            <input type="text" value={user.empresa || ""} readOnly />
           </div>
         </div>
       </div>
@@ -75,23 +100,23 @@ export default function Profile() {
         <div className="campos-grid">
           <div className="campo">
             <label>Marca</label>
-            <input type="text" value={vehiculo.marca} readOnly />
+            <input type="text" name="marca" value={vehiculo.marca} onChange={handleVehiculoChange} />
           </div>
           <div className="campo">
             <label>Modelo</label>
-            <input type="text" value={vehiculo.modelo} readOnly />
+            <input type="text" name="modelo" value={vehiculo.modelo} onChange={handleVehiculoChange} />
           </div>
           <div className="campo">
             <label>Año</label>
-            <input type="text" value={vehiculo.año} readOnly />
+            <input type="text" name="año" value={vehiculo.año} onChange={handleVehiculoChange} />
           </div>
           <div className="campo">
             <label>Matrícula</label>
-            <input type="text" value={vehiculo.matricula} readOnly />
+            <input type="text" name="matricula" value={vehiculo.matricula} onChange={handleVehiculoChange} />
           </div>
           <div className="campo">
             <label>Tipo de Combustible</label>
-            <input type="text" value={vehiculo.tipoCombustible} readOnly />
+            <input type="text" name="tipoCombustible" value={vehiculo.tipoCombustible} onChange={handleVehiculoChange} />
           </div>
         </div>
       </div>
@@ -100,46 +125,27 @@ export default function Profile() {
       <div className="seccion-perfil">
         <h2>⚙️ Preferencias</h2>
         <ul className="preferencias-lista">
-          <li>
-            <div>
-              <strong>🔔 Notificaciones push</strong>
-              <p>Recibe alertas importantes</p>
-            </div>
-            <label className="switch">
-              <input type="checkbox" checked={preferencias.notificacionesPush} readOnly />
-              <span className="slider"></span>
-            </label>
-          </li>
-          <li>
-            <div>
-              <strong>🚦 Alertas de tráfico</strong>
-              <p>Avisos sobre congestiones</p>
-            </div>
-            <label className="switch">
-              <input type="checkbox" checked={preferencias.alertasTrafico} readOnly />
-              <span className="slider"></span>
-            </label>
-          </li>
-          <li>
-            <div>
-              <strong>📊 Reportes semanales</strong>
-              <p>Resumen de tu rendimiento</p>
-            </div>
-            <label className="switch">
-              <input type="checkbox" checked={preferencias.reportesSemanales} readOnly />
-              <span className="slider"></span>
-            </label>
-          </li>
-          <li>
-            <div>
-              <strong>🔒 Modo privacidad</strong>
-              <p>Ocultar ubicación en tiempo real</p>
-            </div>
-            <label className="switch">
-              <input type="checkbox" checked={preferencias.modoPrivacidad} readOnly />
-              <span className="slider"></span>
-            </label>
-          </li>
+          {[
+            { key: "notificacionesPush", label: "🔔 Notificaciones push", desc: "Recibe alertas importantes" },
+            { key: "alertasTrafico", label: "🚦 Alertas de tráfico", desc: "Avisos sobre congestiones" },
+            { key: "reportesSemanales", label: "📊 Reportes semanales", desc: "Resumen de tu rendimiento" },
+            { key: "modoPrivacidad", label: "🔒 Modo privacidad", desc: "Ocultar ubicación en tiempo real" },
+          ].map((pref) => (
+            <li key={pref.key}>
+              <div>
+                <strong>{pref.label}</strong>
+                <p>{pref.desc}</p>
+              </div>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={preferencias[pref.key]}
+                  onChange={() => handlePreferenciaChange(pref.key)}
+                />
+                <span className="slider"></span>
+              </label>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
