@@ -14,6 +14,7 @@
 
 ### 🎓 Proyecto Final - The Bridge | Desafío Final
 **Frontend del proyecto colaborativo entre equipos de:**
+
 `Marketing` • `Data Science` • `Ciberseguridad` • `Full-Stack`
 
 </div>
