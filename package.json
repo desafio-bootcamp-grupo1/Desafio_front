@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dashboard:readme:pdf": "md-to-pdf README_mongodb_dashboard.md --config-file md-to-pdf-config.json"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
@@ -28,6 +29,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.4.0",
+    "md-to-pdf": "^5.2.4",
     "sass": "^1.93.2",
     "vite": "^7.1.7"
   }
