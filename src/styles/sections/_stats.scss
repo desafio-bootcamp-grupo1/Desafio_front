@@ -13,3 +13,6 @@
     &__label { color: var(--gray-500); }
   }
   
+/* Ensure light-grey background even with generic .section rule */
+.section.stats { background: var(--gray-light); }
+  
