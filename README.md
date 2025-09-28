@@ -1,15 +1,20 @@
-# 🚛 Fleet Manager - Sistema de Gestión de Flotas
+# 🚛 OnTrack - Sistema de Gestión de Flotas
 
 <div align="center">
 
-![Fleet Manager](https://img.shields.io/badge/Fleet-Manager-blue?style=for-the-badge)
+![OnTrack](https://img.shields.io/badge/OnTrack-Sistema%20de%20Flotas-blue?style=for-the-badge)
 ![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=for-the-badge&logo=react)
 ![Vite](https://img.shields.io/badge/Vite-7.1.7-646CFF?style=for-the-badge&logo=vite)
 ![Redux](https://img.shields.io/badge/Redux-Toolkit-764ABC?style=for-the-badge&logo=redux)
+![The Bridge](https://img.shields.io/badge/The%20Bridge-Desaf%C3%ADo%20Final-orange?style=for-the-badge)
 
 **Organiza, Simplifica, Ahorra.**
 
 *La plataforma inteligente para el seguimiento y optimización de gastos de combustible en flotas corporativas*
+
+### 🎓 Proyecto Final - The Bridge | Desafío Final
+**Frontend del proyecto colaborativo entre equipos de:**
+`Marketing` • `Data Science` • `Ciberseguridad` • `Full-Stack`
 
 </div>
 
@@ -26,6 +31,7 @@
 - [🎨 Estructura del Proyecto](#-estructura-del-proyecto)
 - [📊 Dashboard del Manager](#-dashboard-del-manager)
 - [🔐 Sistema de Autenticación](#-sistema-de-autenticación)
+- [🤝 Colaboración Multidisciplinar](#-colaboración-multidisciplinar)
 - [🎯 Scripts Disponibles](#-scripts-disponibles)
 - [🌐 Variables de Entorno](#-variables-de-entorno)
 - [📝 Licencia](#-licencia)
@@ -34,7 +40,16 @@
 
 ## 🎯 Descripción del Proyecto
 
-**Fleet Manager** es una aplicación web moderna y completa diseñada para revolucionar la gestión de flotas corporativas. Nuestra plataforma permite a las empresas optimizar sus gastos de combustible, monitorear el rendimiento de conductores y obtener insights valiosos sobre el uso de su flota vehicular.
+**OnTrack** es una aplicación web moderna y completa diseñada para revolucionar la gestión de flotas corporativas. Desarrollada como proyecto final del **Desafío de The Bridge**, esta plataforma representa la culminación del trabajo colaborativo entre equipos especializados en Marketing, Data Science, Ciberseguridad y Full-Stack Development.
+
+### 🌉 Contexto Académico - The Bridge
+Este repositorio contiene la **parte frontend** del proyecto final, donde se integran:
+- **🎨 Marketing**: Estrategia de usuario y diseño de experiencia
+- **📊 Data Science**: Análisis de datos y algoritmos de optimización  
+- **🔒 Ciberseguridad**: Implementación de medidas de seguridad robustas
+- **💻 Full-Stack**: Desarrollo completo de la aplicación web
+
+La plataforma permite a las empresas optimizar sus gastos de combustible, monitorear el rendimiento de conductores y obtener insights valiosos sobre el uso de su flota vehicular.
 
 ### 🎪 Demo en Vivo
 El proyecto incluye una landing page completamente funcional con:
@@ -271,6 +286,44 @@ const fleetStats = {
 
 ---
 
+## 🤝 Colaboración Multidisciplinar
+
+### 🏆 The Bridge - Desafío Final
+**OnTrack** es el resultado del trabajo colaborativo entre cuatro equipos especializados en el marco del Desafío Final de The Bridge. Cada equipo aportó su expertise específica para crear una solución integral:
+
+#### 🎨 **Equipo de Marketing**
+- **UX/UI Research**: Investigación de usuarios y análisis de mercado
+- **Brand Strategy**: Desarrollo de identidad visual y posicionamiento
+- **User Journey**: Diseño de experiencia de usuario optimizada
+- **Content Strategy**: Estrategia de contenidos y copy persuasivo
+
+#### 📊 **Equipo de Data Science**
+- **Algoritmos de Optimización**: Modelos para eficiencia de combustible
+- **Análisis Predictivo**: Predicción de mantenimiento y costos
+- **Machine Learning**: Sistemas de recomendación de rutas
+- **Data Visualization**: Métricas y dashboards analíticos
+
+#### 🔒 **Equipo de Ciberseguridad**
+- **Seguridad de API**: Implementación de protocolos seguros
+- **Gestión de Tokens**: Sistema JWT robusto y seguro
+- **Protección de Datos**: Encriptación y compliance GDPR
+- **Auditoría de Seguridad**: Análisis de vulnerabilidades
+
+#### 💻 **Equipo Full-Stack** (Este Repositorio)
+- **Frontend Development**: React + Redux + Vite
+- **API Integration**: Cliente HTTP con interceptores
+- **State Management**: Gestión completa del estado global
+- **Responsive Design**: Interfaz adaptable y moderna
+
+### 🔗 **Integración de Equipos**
+Este repositorio frontend se conecta con:
+- **Backend API** (desarrollado por Full-Stack)
+- **Modelos ML** (integrados desde Data Science)
+- **Políticas de Seguridad** (implementadas por Ciberseguridad)
+- **Diseño UX/UI** (especificado por Marketing)
+
+---
+
 ## 🎯 Scripts Disponibles
 
 ```bash
@@ -337,10 +390,23 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 <div align="center">
 
+**🎓 Proyecto Final - The Bridge | Desafío**
+
+*OnTrack representa la excelencia en colaboración multidisciplinar*
+
 **¿Listo para optimizar tu flota?**
 
-[🚀 Comenzar Ahora](http://localhost:5173) | [📧 Contacto](mailto:contact@fleetmanager.es) | [📚 Documentación](./docs)
+[🚀 Demo Local](http://localhost:5173) | [🌉 The Bridge](https://thebridge.tech) | [📚 Documentación](./docs)
 
-*Desarrollado con ❤️ para la gestión inteligente de flotas*
+*Desarrollado con ❤️ por equipos de Marketing, Data Science, Ciberseguridad y Full-Stack*
+
+---
+
+### 🏆 Logros del Proyecto
+- ✅ **Integración exitosa** de 4 disciplinas técnicas
+- ✅ **Aplicación full-stack** completamente funcional  
+- ✅ **Dashboard en tiempo real** con métricas avanzadas
+- ✅ **Sistema de seguridad** robusto y escalable
+- ✅ **UX/UI optimizada** basada en research
 
 </div>
