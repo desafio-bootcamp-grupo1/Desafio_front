@@ -36,4 +36,4 @@
  
  # Cypress
  cypress/screenshots/
- cypress/videos/
+ cypress/videos/node_modules/

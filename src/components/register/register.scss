@@ -5,21 +5,19 @@
   inset: 0;
   background: rgba(0,0,0,0.4);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 999;
+  align-items: center;
+  overflow: hidden; 
 }
 
 .modal {
-  background: $color-white;
-  padding: $space-lg;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-  width: 320px;
-  max-width: 95%;
-  position: relative;
-  transform: scale(0.9);
-  opacity: 0;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 350px;
+  width: 90%;
+  max-height: 90vh; 
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
 .animate-in {
@@ -47,29 +45,29 @@
   cursor: pointer;
 }
 
-.login-form {
+.register-form {
   display: flex;
   flex-direction: column;
-  gap: $space-md;
+  gap: 0.8rem;
   font-family: $font-family-base;
 }
 
-.login-header {
+.register-header {
   display: flex;
   align-items: center;
   gap: $space-sm;
   margin-bottom: $space-md;
 }
 
-.login-icon {
+.register-icon {
   color: $color-primary;
 }
 
-.login-form label {
-  font-size: 14px;
+.register-form label {
+  font-size: 15px;
+  margin-bottom: 3px;
   display: flex;
   align-items: center;
-  gap: 4px;
 }
 
 .required {
@@ -77,33 +75,31 @@
   cursor: help;
 }
 
-.forgot-pass {
-  font-size: 12px;
-  color: $color-primary;
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
+.register-form input,
+.register-form select {
+  width: 100%;
+  border-radius: 6px;
+  padding: $space-xs $space-sm;
+  border: 1px solid $color-gray;
+  box-sizing: border-box;
+  font-size: 14px;
 }
 
-.email-field,
+.register-form input::placeholder {
+  color: $color-gray;
+}
+
 .password-field {
   position: relative;
   display: flex;
   align-items: center;
-  width: 100%; 
 }
 
-.email-field input,
 .password-field input {
   width: 100%;
   border-radius: 6px;
-  padding: $space-xs 2.5rem $space-xs $space-xs; 
+  padding: $space-xs 2.5rem $space-xs $space-xs;
   border: 1px solid $color-gray;
-}
-
-.login-form input::placeholder {
-  color: $color-gray;
 }
 
 .password-field .eye-btn {
@@ -111,41 +107,60 @@
   right: 4px;
   top: 50%;
   transform: translateY(-50%);
-  background: $color-white; 
+  background: $color-white;
   border: none;
   cursor: pointer;
+  padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
-  padding: 4px;
 }
 
-.login-btn {
+.register-btn {
   background: $color-primary;
   color: $color-white;
   padding: $space-sm;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
 }
 
-.login-btn:hover {
+.register-btn:hover {
   background: $color-primary-dark;
 }
 
-.error {
-  color: $color-primary-dark;
+.privacy-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 14px;
-}
 
-.login-links {
-  margin-top: $space-sm;
-  font-size: 14px;
   .link {
     color: $color-primary;
     cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.login-link {
+  text-align: center;
+  font-size: 13px;
+  margin-top: $space-sm;
+
+  a {
+    color: $color-primary;
+    font-weight: bold;
+    cursor: pointer;
+
     &:hover {
       text-decoration: underline;
     }
@@ -154,36 +169,33 @@
 
 @media (max-width: 480px) {
   .modal {
-    width: 90%; 
+    width: 90%;
     padding: $space-md;
   }
 
-  .login-header {
+  .register-header {
     flex-direction: column;
     align-items: center;
     gap: $space-xs;
   }
 
-  .login-icon {
+  .register-icon {
     width: 36px;
     height: 36px;
   }
 
-  .login-form label {
+  .register-form label {
     font-size: 13px;
   }
 
-  .forgot-pass {
-    font-size: 11px;
-  }
-
-  .login-btn {
+  .register-btn {
     padding: $space-xs;
   }
 
   .password-field input,
-  .email-field input {
-    padding: $space-xs 2rem $space-xs $space-xs; 
+  .register-form input,
+  .register-form select {
+    padding: $space-xs 2rem $space-xs $space-xs;
   }
 
   .close-btn {
