@@ -1,23 +1,29 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import HeaderDriver from "../components/Header2/HeaderDriver";
 import Footer from "../sections/Footer";
-import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/Card";
+import { Card, CardContent } from "../components/ui/Card";
 import StatCard from "../components/dashboard/StatCard";
 import FuelChart from "../components/driver/FuelChart";
 import SavingsChart from "../components/driver/SavingsChart";
 import RecentTickets from "../components/driver/RecentTickets";
 import AchievementsCard from "../components/driver/AchievementsCard";
+import HeaderDriver from "../components/header/Header";
 
-import { Truck, Fuel, DollarSign, MapPin } from "lucide-react"; 
-import "../styles/base.scss";
+import { Ticket, Fuel, DollarSign, Droplet } from "lucide-react"; 
 import "../styles/components/_driver-dashboard.scss";
 
 const driverProfile = {
   firstName: "Miguel",
   lastName: "Hernández",
   driverId: "D-1024",
+  vehicle: {
+    brand: "Toyota",
+    model: "Corolla",
+    year: 2020,
+    plate: "1234-ABC",
+    fuelType: "Gasolina",
+  },
 };
 
 const monthSummary = {
@@ -45,29 +51,28 @@ const savingsByMonth = [
   { month: "Sep", spend: 340 },
 ];
 
-const recentTickets = [
+const recentTicketsData = [
   { id: 1, date: "2025-09-27", amount: "€18.20" },
   { id: 2, date: "2025-09-24", amount: "€27.80" },
 ];
 
 export default function DriverDashboard() {
   const navigate = useNavigate();
+  const { vehicle } = driverProfile;
 
-  const goToScan = () => {
-    navigate("/scan");
+  const handleLogout = () => {
+    localStorage.removeItem("userType");
+    localStorage.removeItem("userEmail");
+    navigate("/login");
   };
 
   return (
     <>
-      <HeaderDriver
-        onLogout={() => {
-          localStorage.removeItem("userType");
-          localStorage.removeItem("userEmail");
-          navigate("/login");
-        }}
-      />
+      {/* Header único */}
+      <HeaderDriver onLogout={handleLogout} />
 
       <section className="container dashboard driver-dashboard">
+        {/* Header de sección */}
         <header className="dashboard__head">
           <div>
             <h1 className="dashboard__title">Driver Dashboard</h1>
@@ -77,11 +82,18 @@ export default function DriverDashboard() {
           </div>
         </header>
 
-        
+        {/* Perfil del conductor */}
         <div className="driver-profile-section">
           <Card className="card driver-profile">
-            <CardContent className="driver-profile__content">
-              <div>
+            <CardContent
+              className="driver-profile__content"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div className="driver-info">
                 <h2 className="driver-profile__name">
                   {driverProfile.firstName} {driverProfile.lastName}
                 </h2>
@@ -90,59 +102,101 @@ export default function DriverDashboard() {
               <div>
                 <button
                   className="btn btn--primary btn--md"
-                  onClick={goToScan}
+                  onClick={() => navigate("/app/")}
                 >
                   Escanea un ticket
                 </button>
               </div>
             </CardContent>
           </Card>
+
+          <Card className="card vehicle-info-card" style={{ marginTop: "1.5rem" }}>
+            <CardContent className="vehicle-info__content">
+              <h3
+                className="vehicle-info__title"
+                style={{ marginTop: "1rem", marginBottom: "0.8rem" }}
+              >
+                Información del vehículo
+              </h3>
+              <div
+                className="vehicle-info__details"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                  gap: "1rem",
+                  marginTop: "0.5rem",
+                }}
+              >
+                <p>
+                  <strong style={{ color: "var(--coral)" }}>Marca:</strong>{" "}
+                  {vehicle.brand}
+                </p>
+                <p>
+                  <strong style={{ color: "var(--coral)" }}>Modelo:</strong>{" "}
+                  {vehicle.model}
+                </p>
+                <p>
+                  <strong style={{ color: "var(--coral)" }}>Año:</strong>{" "}
+                  {vehicle.year}
+                </p>
+                <p>
+                  <strong style={{ color: "var(--coral)" }}>Matrícula:</strong>{" "}
+                  {vehicle.plate}
+                </p>
+                <p>
+                  <strong style={{ color: "var(--coral)" }}>Combustible:</strong>{" "}
+                  {vehicle.fuelType}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
-     
+        {/* Resumen del mes */}
         <section className="driver-summary">
           <h3 className="driver-summary__title">
             <Fuel size={18} style={{ color: "var(--coral)" }} /> Resumen del mes
           </h3>
           <div className="driver-summary__cards">
             <StatCard
+              icon={(props) => <Ticket {...props} style={{ color: "var(--coral)" }} />}
               label="Tickets escaneados"
               value={monthSummary.scans}
-              color="coral"
             />
             <StatCard
+              icon={(props) => <Fuel {...props} style={{ color: "var(--coral)" }} />}
               label="Gasto en combustible"
               value={monthSummary.fuelSpent}
               hint="según tickets"
-              color="blue"
             />
             <StatCard
+              icon={(props) => <Droplet {...props} style={{ color: "var(--coral)" }} />}
               label="Combustible perdido (L)"
               value={monthSummary.litersLost}
-              color="green"
             />
             <StatCard
+              icon={(props) => <DollarSign {...props} style={{ color: "var(--coral)" }} />}
               label="Dinero perdido"
               value={monthSummary.moneyLost}
-              color="purple"
             />
           </div>
         </section>
 
-   
+        {/* Gráficos */}
         <div className="driver-charts">
           <FuelChart data={litersByMonth} />
           <SavingsChart data={savingsByMonth} />
         </div>
 
-
+        {/* Tickets recientes y logros */}
         <div className="driver-lower">
-          <RecentTickets tickets={recentTickets} />
+          <RecentTickets tickets={recentTicketsData} />
           <AchievementsCard />
         </div>
-      </section>
 
-      <Footer />
+        {/* Footer */}
+        <Footer />
+      </section>
     </>
   );
 }
