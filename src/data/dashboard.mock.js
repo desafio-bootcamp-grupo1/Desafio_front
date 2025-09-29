@@ -12,11 +12,11 @@ export const fleetStats = {
   
   // “Estado de la flota” table
   export const fleetRows = [
-    { id: 1, driver: "Carlos Martínez", vehicle: "1234-ABC", status: "En ruta", location: "Bilbao → San Sebastián", fuel: 85, speed: 62 },
-    { id: 2, driver: "Ana García",       vehicle: "5678-DEF", status: "Parado",  location: "Madrid Centro",            fuel: 45, speed: 0  },
-    { id: 3, driver: "Luis Rodríguez",   vehicle: "9012-GHI", status: "En ruta", location: "Valencia → Barcelona",     fuel: 72, speed: 95 },
-    { id: 4, driver: "María López",      vehicle: "3456-JKL", status: "Mantenimiento", location: "Taller Sevilla",     fuel: 20, speed: 0  },
-    { id: 5, driver: "Pedro Sánchez",    vehicle: "7890-MNO", status: "En ruta", location: "Zaragoza → Huesca",        fuel: 90, speed: 78 },
+    { id: 1, driver: "Nahia Otaegi", vehicle: "1234-ABC", status: "En ruta", location: "Bilbao → San Sebastián", fuel: 85, speed: 62 },
+    { id: 2, driver: "Elida Rodrígez",       vehicle: "5678-DEF", status: "Parado",  location: "Madrid Centro",            fuel: 45, speed: 0  },
+    { id: 3, driver: "Edu Loaiza",   vehicle: "9012-GHI", status: "En ruta", location: "Valencia → Barcelona",     fuel: 72, speed: 95 },
+    { id: 4, driver: "Ametz López",      vehicle: "3456-JKL", status: "Mantenimiento", location: "Taller Sevilla",     fuel: 20, speed: 0  },
+    { id: 5, driver: "Egoitz Aulestia",    vehicle: "7890-MNO", status: "En ruta", location: "Zaragoza → Huesca",        fuel: 90, speed: 78 },
   ];
   
   // Charts
