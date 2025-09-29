@@ -91,9 +91,9 @@ El proyecto incluye una landing page completamente funcional con:
 
 ```mermaid
 flowchart TB
-  A[Landing Page<br/>• Hero<br/>• Features<br/>• Statistics<br/>• CTA] --> B[Authentication<br/>• Login Form<br/>• Register Form<br/>• Token Management<br/>• Session Control]
-  B --> C[OCR Scanner<br/>• Camera / Upload<br/>• Tesseract.js OCR<br/>• Ticket Validation<br/>• Local Storage]
-  C --> D[Dashboards (Driver & Manager)<br/>• KPIs, Charts, Tables<br/>• Fleet & Driver Views<br/>• Alerts]
+  A[Landing Page\n• Hero\n• Features\n• Statistics\n• CTA] --> B[Authentication\n• Login Form\n• Register Form\n• Token Management\n• Session Control]
+  B --> C[OCR Scanner\n• Camera / Upload\n• Tesseract.js OCR\n• Ticket Validation\n• Local Storage]
+  C --> D[Dashboards (Driver & Manager)\n• KPIs, Charts, Tables\n• Fleet & Driver Views\n• Alerts]
 ```
 
 Si tu visor no soporta Mermaid, esquema compacto sin scroll:
