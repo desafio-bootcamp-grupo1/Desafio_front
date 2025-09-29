@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import TicketValidator from '../components/utils/ticketValidator.js';
+import Header from '../components/header/Header';
 
 const EscanerPage = () => {
   const navigate = useNavigate();
@@ -16,9 +17,7 @@ const EscanerPage = () => {
   const [resultadoValidacion, setResultadoValidacion] = useState(null);
 
   const validarImagen = async (imageSrc) => {
-    if (validando) {
-      return;
-    }
+    if (validando) return;
 
     setValidando(true);
     setProgreso(0);
@@ -29,37 +28,35 @@ const EscanerPage = () => {
       const resultado = await TicketValidator.validarTicket(imageSrc);
 
       if (resultado.esTicket) {
-        toast.success(`✅ ¡Es un ticket!`);
+        toast.success('✅ ¡Es un ticket!');
         setEsTicket(true);
         setResultadoValidacion(resultado);
       } else {
-        toast.error(`❌ No parece un ticket `);
+        toast.error('❌ No parece un ticket');
         setEsTicket(false);
         setResultadoValidacion(resultado);
-        setTimeout(() => {
-          clearImage();
-        }, 2000);
+        setTimeout(() => clearImage(), 2000);
       }
 
       setEtapa('completado');
       setProgreso(100);
-
     } catch (error) {
       console.error('ERROR validando ticket:', error);
       toast.error('Error procesando la imagen');
       setError(error.message);
       setEtapa('error');
     } finally {
-      console.log('Validación completada');
       setValidando(false);
     }
   };
 
   const procesarTicket = async () => {
     if (!resultadoValidacion) return;
+
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
       toast.success('✅ Ticket añadido correctamente');
+
       const existing = JSON.parse(localStorage.getItem('ticketsProcesados') || '[]');
       const ticketData = {
         imageSrc: previewUrl,
@@ -67,11 +64,9 @@ const EscanerPage = () => {
         timestamp: new Date().toISOString(),
         esTicket: resultadoValidacion.esTicket,
       };
-      
+
       localStorage.setItem('ticketsProcesados', JSON.stringify([ticketData, ...existing]));
-      
       clearImage();
-      
     } catch (error) {
       toast.error('❌ Error procesando ticket');
       console.error('Error:', error);
@@ -99,10 +94,7 @@ const EscanerPage = () => {
         setEsTicket(null);
         setResultadoValidacion(null);
         setEtapa('');
-        
-        setTimeout(() => {
-          validarImagen(imageUrl);
-        }, 500);
+        setTimeout(() => validarImagen(imageUrl), 500);
       };
       reader.readAsDataURL(file);
     }
@@ -139,94 +131,94 @@ const EscanerPage = () => {
           <button 
             onClick={procesarTicket}
             disabled={validando}
-            style={{ 
-              opacity: validando ? 0.6 : 1
-            }}
+            style={{ opacity: validando ? 0.6 : 1 }}
           >
             {validando ? '⏳ Añadiendo ticket...' : '📡 Añadir ticket'}
           </button>
-          <button 
-            onClick={clearImage}
-          >
-            Descartar imagen
-          </button>
+          <button onClick={clearImage}>Descartar imagen</button>
         </div>
       </div>
     );
   };
 
   return (
-    <div className='escaner-page'>
-      
-      <div className='escaner-header'>
-        <h1>Escanea tu ticket</h1>
-        <p>Utiliza la cámara para escanear automáticamente tickets de gasolina y registrar el gasto en tu historial</p>
-      </div>
-
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        onChange={handleImageUpload}
-        style={{ display: 'none' }}
+    <>
+      <Header
+        onLogout={() => {
+          localStorage.removeItem("userType");
+          localStorage.removeItem("userEmail");
+          navigate("/login");
+        }}
       />
 
-      {previewUrl ? (
-        <div style={{ textAlign: 'center' }}>
-          <h3>Vista previa:</h3>
-          <img
-            src={previewUrl}
-            alt="Vista previa del ticket"
-            style={{
-              maxWidth: '300px',
-              maxHeight: '400px',
-              border: `2px solid ${
-                validando ? '#007bff' : 
-                esTicket === true ? '#28a745' : 
-                esTicket === false ? '#dc3545' : '#ccc'
-              }`,
-              borderRadius: '10px'
-            }}
-          />
-          
-          {validando && (
-            <div style={{ marginTop: '15px', color: '#007bff', fontWeight: 'bold' }}>
-              Validando imagen...
-            </div>
-          )}
-          
-          {renderBotonesAdicionales()}
-          
+      <div className='escaner-page'>
+        <div className='escaner-header'>
+          <h1>Escanea tu ticket</h1>
+          <p>Utiliza la cámara para escanear automáticamente tickets de gasolina y registrar el gasto en tu historial</p>
         </div>
-      ) : (
-        <div className='escaner-options'>
-          <button onClick={triggerFileInput}>
-            Seleccionar Imagen
-          </button>
-          <button onClick={() => navigate('/app/camera')}>
-            Tomar Foto
-          </button>
-        </div>
-      )}
 
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          style={{ display: 'none' }}
+        />
 
-      {error && (
-        <div style={{
-          marginTop: '20px',
-          padding: '15px',
-          background: '#ffebee',
-          color: '#c62828',
-          borderRadius: '5px',
-          textAlign: 'center'
-        }}>
-          <p>{error}</p>
-          <button onClick={reintentarValidacion} style={{ marginTop: '10px', padding: '10px 20px' }}>
-            Reintentar
-          </button>
-        </div>
-      )}
-    </div>
+        {previewUrl ? (
+          <div style={{ textAlign: 'center' }}>
+            <h3>Vista previa:</h3>
+            <img
+              src={previewUrl}
+              alt="Vista previa del ticket"
+              style={{
+                maxWidth: '300px',
+                maxHeight: '400px',
+                border: `2px solid ${
+                  validando ? '#007bff' : 
+                  esTicket === true ? '#28a745' : 
+                  esTicket === false ? '#dc3545' : '#ccc'
+                }`,
+                borderRadius: '10px'
+              }}
+            />
+
+            {validando && (
+              <div style={{ marginTop: '15px', color: '#007bff', fontWeight: 'bold' }}>
+                Validando imagen...
+              </div>
+            )}
+
+            {renderBotonesAdicionales()}
+          </div>
+        ) : (
+          <div className='escaner-options'>
+            <button onClick={triggerFileInput}>Seleccionar Imagen</button>
+            <button onClick={() => navigate('/app/camera')}>Tomar Foto</button>
+          </div>
+        )}
+
+        {error && (
+          <div style={{
+            marginTop: '20px',
+            padding: '15px',
+            background: '#ffebee',
+            color: '#c62828',
+            borderRadius: '5px',
+            textAlign: 'center'
+          }}>
+            <p>{error}</p>
+            <button 
+              onClick={reintentarValidacion} 
+              style={{ marginTop: '10px', padding: '10px 20px' }}
+            >
+              Reintentar
+            </button>
+          </div>
+        )}
+      </div>
+    </>
   );
-}
+};
 
 export default EscanerPage;

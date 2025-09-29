@@ -1,38 +1,26 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Index from "./pages/Index";
-import "./styles/base.scss";
 import ManagerDashboard from "./pages/ManagerDashboard";
-import Header from "./components/header/Header";
+import DriverDashboard from "./pages/DriverDashboard"; 
 import EscanerPage from "./pages/EscanerPage";
 import Camera from "./components/camera/Camera";
 import { Toaster } from 'react-hot-toast';
+import "./styles/base.scss";
 
 function App() {
-  return (<>
-  <Toaster />
-    <Router>
-      <Routes>
-        <Route path="/" element={<Index />} />
-
-        <Route
-          path="/app/manager"
-          element={<>
-            <Header />
-            <ManagerDashboard />
-          </>}
-        />
-
-        <Route
-          path="/app/"
-          element={<>
-            <Header />
-            <EscanerPage />
-          </>}
-        />
-        <Route path="/app/camera" element={<Camera />} />
-       
-      </Routes>
-    </Router>
+  return (
+    <>
+      <Toaster />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/manager" element={<ManagerDashboard />} />
+          <Route path="/driver" element={<DriverDashboard />} />
+          <Route path="/app/manager" element={<ManagerDashboard />} />
+          <Route path="/app/" element={<EscanerPage />} />
+          <Route path="/app/camera" element={<Camera />} />
+        </Routes>
+      </Router>
     </>
   );
 }

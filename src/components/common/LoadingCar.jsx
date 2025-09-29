@@ -10,35 +10,34 @@ export function LoadingCar() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-       
+        
         <path
           d="M0 50 H150"
           stroke="#ccc"
           strokeWidth="4"
           strokeLinecap="round"
-        />  
+          strokeDasharray="10 8"
+        />
+
+       
         <g>
-     
-
-<animateTransform
-  attributeName="transform"
-  type="translate"
-  from="150 0"
-  to="-60 0"
-  dur="2s"
-  repeatCount="indefinite"
-/>
-
-      
-          <rect x="0" y="30" width="50" height="20" rx="5" fill="#000" />
           
-  
-          <polygon points="10,30 20,20 40,20 45,30" fill="#000" />
+          <animateTransform
+            attributeName="transform"
+            type="translate"
+            from="-60 0"
+            to="150 0"
+            dur="2s"
+            repeatCount="indefinite"
+          />
+
           
+          <rect x="0" y="30" width="50" height="20" rx="5" fill="#e55a4f" />
 
-          <rect x="22" y="22" width="10" height="8" rx="1" fill="#fff" />
+          <polygon points="5,30 10,20 30,20 40,30" fill="#000" />
 
-  
+          <rect x="15" y="22" width="10" height="8" rx="1" fill="#fff" />
+
           <circle cx="12" cy="50" r="5" fill="#333" />
           <circle cx="38" cy="50" r="5" fill="#333" />
         </g>
