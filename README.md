@@ -45,10 +45,10 @@
 
 ### 🌉 Contexto Académico - The Bridge
 Este repositorio contiene la **parte frontend** del proyecto final, donde se integran:
-- **🎨 Marketing**: Estrategia de usuario y diseño de experiencia
+- **🎨 Marketing**: Buyer persona, Customer journey y campañas online
 - **📊 Data Science**: Análisis de datos y algoritmos de optimización  
 - **🔒 Ciberseguridad**: Implementación de medidas de seguridad robustas
-- **💻 Full-Stack**: Desarrollo completo de la aplicación web
+- **💻 Full-Stack**: Desarrollo completo de la aplicación web y diseño de UI
 
 La plataforma permite a las empresas optimizar sus gastos de combustible, monitorear el rendimiento de conductores y obtener insights valiosos sobre el uso de su flota vehicular.
 
@@ -90,16 +90,16 @@ El proyecto incluye una landing page completamente funcional con:
 ## 🏗️ Arquitectura del Sistema
 
 ```
-┌─────────────────────┐    ┌─────────────────────┐    ┌─────────────────────┐
-│                     │    │                     │    │                     │
-│   Landing Page      │    │  Authentication     │    │  Manager Dashboard  │
-│                     │    │                     │    │                     │
-│ • Hero Section      │────│ • Login Form        │────│ • Fleet Stats       │
-│ • Features          │    │ • Register Form     │    │ • Real-time Table   │
-│ • Statistics        │    │ • Token Management  │    │ • Charts & Analytics│
-│ • CTA Section       │    │ • Session Control   │    │ • Driver Performance│
-│                     │    │                     │    │ • Alerts System     │
-└─────────────────────┘    └─────────────────────┘    └─────────────────────┘
+┌─────────────────────┐    ┌─────────────────────┐    ┌─────────────────────┐    ┌─────────────────────────┐
+│                     │    │                     │    │                     │    │                         │
+│   Landing Page      │    │  Authentication     │    │    OCR Scanner      │    │       Dashboards        │
+│                     │    │                     │    │                     │    │    (Driver & Manager)   │
+│ • Hero Section      │────│ • Login Form        │────│ • Camera / Upload   │────│ • KPIs, Charts, Tables  │
+│ • Features          │    │ • Register Form     │    │ • Tesseract.js OCR  │    │ • Fleet & Driver Views  │
+│ • Statistics        │    │ • Token Management  │    │ • Ticket Validation │    │ • Alerts & Actions      │
+│ • CTA Section       │    │ • Session Control   │    │ • Local Storage     │    │ • Exports (futuro)      │
+│                     │    │                     │    │                     │    │                         │
+└─────────────────────┘    └─────────────────────┘    └─────────────────────┘    └─────────────────────────┘
 ```
 
 ---
@@ -327,10 +327,10 @@ const fleetStats = {
 **OnTrack** es el resultado del trabajo colaborativo entre cuatro equipos especializados en el marco del Desafío Final de The Bridge. Cada equipo aportó su expertise específica para crear una solución integral:
 
 #### 🎨 **Equipo de Marketing**
-- **UX/UI Research**: Investigación de usuarios y análisis de mercado
-- **Brand Strategy**: Desarrollo de identidad visual y posicionamiento
-- **User Journey**: Diseño de experiencia de usuario optimizada
-- **Content Strategy**: Estrategia de contenidos y copy persuasivo
+- **Buyer Persona**: Definición de perfiles de cliente
+- **Customer Journey**: Mapeo del recorrido del cliente
+- **Campañas Online**: Planificación y activación de campañas
+- **Estrategia de Contenidos**: Mensajes y copy persuasivo
 
 #### 📊 **Equipo de Data Science**
 - **Algoritmos de Optimización**: Modelos para eficiencia de combustible
@@ -346,6 +346,7 @@ const fleetStats = {
 
 #### 💻 **Equipo Full-Stack** (Este Repositorio)
 - **Frontend Development**: React + Redux + Vite
+- **UI Design**: Diseño e implementación de la interfaz
 - **API Integration**: Cliente HTTP con interceptores
 - **State Management**: Gestión completa del estado global
 - **Responsive Design**: Interfaz adaptable y moderna
