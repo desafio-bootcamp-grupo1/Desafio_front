@@ -89,21 +89,17 @@ El proyecto incluye una landing page completamente funcional con:
 
 ## 🏗️ Arquitectura del Sistema
 
-```mermaid
-flowchart TB
-  A[Landing Page\n• Hero\n• Features\n• Statistics\n• CTA] --> B[Authentication\n• Login Form\n• Register Form\n• Token Management\n• Session Control]
-  B --> C[OCR Scanner\n• Camera / Upload\n• Tesseract.js OCR\n• Ticket Validation\n• Local Storage]
-  C --> D[Dashboards (Driver & Manager)\n• KPIs, Charts, Tables\n• Fleet & Driver Views\n• Alerts]
 ```
-
-Si tu visor no soporta Mermaid, esquema compacto sin scroll:
-
-```text
-Landing Page → Authentication → OCR Scanner → Dashboards (Driver & Manager)
-- Landing: Hero, Features, Statistics, CTA
-- Auth: Login, Register, Token Management, Session Control
-- OCR: Camera/Upload, Tesseract.js, Ticket Validation, Local Storage
-- Dashboards: KPIs, Charts, Tables, Alerts
+┌─────────────────────┐    ┌─────────────────────┐    ┌─────────────────────┐    ┌─────────────────────────┐
+│                     │    │                     │    │                     │    │                         │
+│   Landing Page      │    │  Authentication     │    │    OCR Scanner      │    │       Dashboards        │
+│                     │    │                     │    │                     │    │    (Driver & Manager)   │
+│ • Hero Section      │────│ • Login Form        │────│ • Camera / Upload   │────│ • KPIs, Charts, Tables  │
+│ • Features          │    │ • Register Form     │    │ • Tesseract.js OCR  │    │ • Fleet & Driver Views  │
+│ • Statistics        │    │ • Token Management  │    │ • Ticket Validation │    │ • Alerts & Actions      │
+│ • CTA Section       │    │ • Session Control   │    │ • Local Storage     │    │ • Exports (futuro)      │
+│                     │    │                     │    │                     │    │                         │
+└─────────────────────┘    └─────────────────────┘    └─────────────────────┘    └─────────────────────────┘
 ```
 
 ---
