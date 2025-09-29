@@ -1,8 +1,8 @@
 @use "../_variables" as *;
 
 .fleet-table {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
+    background: var(--bg-color);
+    border: 1px solid var(--box-color);
     border-radius: $radius-xl;
     box-shadow: var(--shadow-soft);
     overflow: hidden;
@@ -10,7 +10,7 @@
     &__header {
         padding: 16px 20px;
         display: flex; align-items: center; justify-content: space-between;
-        background: #fafafa;
+        background: var(--box-color);
     }
     &__title { margin: 0; font-size: 1rem; font-weight: 700; }
     &__search {
@@ -23,9 +23,9 @@
     &__body { padding: 0 16px 16px; }
 
     table { width: 100%; border-collapse: collapse; }
-    thead th { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--gray-200); color: var(--gray-500); font-weight: 600; }
-    tbody td { padding: 12px 8px; border-bottom: 1px solid #f2f2f2; vertical-align: middle; }
-    tbody tr:hover { background: #fafafa; }
+    thead th { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--gray-200); color: var(--text-color); font-weight: 600; }
+    tbody td { padding: 12px 8px; border-bottom: 1px solid #f2f2f2; vertical-align: middle; color: var(--text-gray-color); }
+    tbody tr:hover { background: var(--box-color);}
 
     .badge {
         padding: 4px 8px; border-radius: 999px; font-size: .75rem; font-weight: 600;

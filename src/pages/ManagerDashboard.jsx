@@ -1,8 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/base.scss";
-
-import Header2 from "../components/Header2/Header2";
 import StatCard from "../components/dashboard/StatCard";
 import FleetTable from "../components/dashboard/FleetTable";
 import MonthlyExpensesChart from "../components/dashboard/MonthlyExpensesChart";
@@ -25,7 +23,6 @@ export default function ManagerDashboard() {
 
   return (
     <>
-      <Header2 onLogout={handleLogout} />
 
       <section className="container dashboard">
         <header className="dashboard__head">

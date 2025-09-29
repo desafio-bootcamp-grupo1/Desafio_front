@@ -1,22 +1,83 @@
+$font-family-base: 'Josefin Sans', sans-serif;
+
+$color-primary: #fe7568;          
+$color-primary-dark: #e24c50;    
+$color-white: #ffffff;
+$color-black: #000000;
+$color-gray: #cccccc;
+$color-gray-dark: #666666;
+
+// Tema claro (default)
+$bg-color-light: $color-white;
+$text-color-light: $color-black;
+$header-bg-light: rgba($color-white, 0.95);
+$nav-button-bg-light: rgba($color-black, 0.1);
+$dropdown-bg-light: $color-white;
+
+// Tema oscuro
+$bg-color-dark: $color-black;
+$text-color-dark: $color-white;
+$header-bg-dark: rgba($color-black, 0.95);
+$nav-button-bg-dark: rgba($color-white, 0.1);
+$dropdown-bg-dark: #1a1a1a;
+
+$container-max: 1160px;
+$radius-xl: 18px;
+$radius-lg: 14px;
+$radius-md: 10px;
+$transition-fast: .18s ease-in-out;
+
 :root {
-    --coral: #ef7866;
-    --coral-light: #f39a8b;
-    --coral-dark: #e55a4f;
-  
-    --gray-900: #0b0e16;
-    --gray-700: #374151;
-    --gray-500: #6b7280;
-    --gray-200: #e5e7eb;
-    --gray-100: #f3f4f6;
-    --gray-light: #f7f7f9;
-  
-    --white: #ffffff;
-    --shadow-soft: 0 8px 28px rgba(0,0,0,.08);
-  }
-  
-  $container-max: 1160px;
-  $radius-xl: 18px;
-  $radius-lg: 14px;
-  $radius-md: 10px;
-  $transition-fast: .18s ease-in-out;
-  
+  // Colores coral
+  --coral: #ef7866;
+  --coral-light: #f39a8b;
+  --coral-dark: #e55a4f;
+
+  // Escala de grises
+  --gray-900: #0b0e16;
+  --gray-700: #374151;
+  --gray-500: #6b7280;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --gray-light: #f7f7f9;
+
+  --white: #ffffff;
+  --shadow-soft: 0 8px 28px rgba(0, 0, 0, .08);
+
+  // Colores base
+  --color-primary: #{$color-primary};
+  --color-primary-dark: #{$color-primary-dark};
+  --color-white: #{$color-white};
+  --color-black: #{$color-black};
+  --color-gray: #{$color-gray};
+  --color-gray-dark: #{$color-gray-dark};
+
+  // Tema claro (default)
+  --bg-color: #{$bg-color-light};
+  --box-color: rgb(255, 255, 255);
+  --text-color: #{$text-color-light};
+  --text-gray-color: var(--gray-500);
+  --header-bg: #{$header-bg-light};
+  --nav-button-bg: #{$nav-button-bg-light};
+  --dropdown-bg: #{$dropdown-bg-light};
+  --border-color: #{rgba($color-black, 0.1)};
+
+  // Variables de layout
+  --container-max: #{$container-max};
+  --radius-xl: #{$radius-xl};
+  --radius-lg: #{$radius-lg};
+  --radius-md: #{$radius-md};
+  --transition-fast: #{$transition-fast};
+}
+
+// Tema oscuro
+[data-theme="dark"] {
+  --bg-color: #{$bg-color-dark};
+  --box-color: rgb(22, 22, 22);
+  --text-color: #{$text-color-dark};
+  --header-bg: #{$header-bg-dark};
+  --nav-button-bg: #{$nav-button-bg-dark};
+  --dropdown-bg: #{$dropdown-bg-dark};
+  --border-color: #{rgba($color-white, 0.1)};
+    --text-gray-color: var(--gray-500);
+}

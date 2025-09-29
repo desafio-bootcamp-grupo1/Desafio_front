@@ -2,7 +2,7 @@
 
 .stat-card {
     border: 0;
-    background: var(--white);
+    background: var(--box-color);
     box-shadow: var(--shadow-soft);
     &__content { padding: 24px; display: flex; align-items: center; justify-content: space-between; }
     &__label  { color: var(--gray-500); font-size: .9rem; margin: 0; }
