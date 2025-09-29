@@ -7,11 +7,21 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'), 
+      '@': path.resolve(__dirname, './src'),
     },
   },
   server: {
-    port: 5173,     
-    strictPort: true, 
+    port: 5173,
+    strictPort: true,
+    proxy: {
+      '/api': {
+        target: '',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
+  build: {
+    outDir: 'dist'
+  }
 });
