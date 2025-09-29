@@ -2,8 +2,8 @@
 @use "../_mixins" as *;
 
 .card {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
+    background-color: var(--box-color);
+    border: 1px solid var(--bg-color);
     border-radius: $radius-xl;    
     @include shadow-soft;
     transition: box-shadow $transition-fast, transform $transition-fast;
@@ -14,4 +14,7 @@
     &__title  { margin: 0; font-size: 1.25rem; font-weight: 700; }
     &__content{ padding: 0 24px 24px; color: var(--gray-500); line-height: 1.6; text-align: center; }
     &__footer { padding: 0 24px 24px; }
+}
+.recharts-default-tooltip{
+    background-color: var(--bg-color)!important;
 }
