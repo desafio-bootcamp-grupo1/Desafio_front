@@ -39,11 +39,6 @@ body {
 .section__title { font-size: 2.25rem; font-weight: 700; margin: 0 0 .5rem; }
 .section__subtitle { color: var(--gray-500); font-size: 1.125rem; max-width: 720px; margin: 0 auto 2.5rem; text-align: center; }
 
- p, h1, h2, h3, h4, h5, h6, span, label, li, a {
-  color: var(--text-color);
-  margin: 0;
-}
-
 #root,body, .home{
   background-color: var(--bg-color);
 }
