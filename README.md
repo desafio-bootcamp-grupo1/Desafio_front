@@ -5,7 +5,7 @@
 ![OnTrack](https://img.shields.io/badge/OnTrack-Sistema%20de%20Flotas-blue?style=for-the-badge)
 ![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=for-the-badge&logo=react)
 ![Vite](https://img.shields.io/badge/Vite-7.1.7-646CFF?style=for-the-badge&logo=vite)
-![Redux](https://img.shields.io/badge/Redux-Toolkit-764ABC?style=for-the-badge&logo=redux)
+![Redux](https://img.shields.io/badge/Redux%20Toolkit-2.9.0-764ABC?style=for-the-badge&logo=redux)
 ![The Bridge](https://img.shields.io/badge/The%20Bridge-Desaf%C3%ADo%20Final-orange?style=for-the-badge)
 
 **Organiza, Simplifica, Ahorra.**
@@ -45,10 +45,10 @@
 
 ### 🌉 Contexto Académico - The Bridge
 Este repositorio contiene la **parte frontend** del proyecto final, donde se integran:
-- **🎨 Marketing**: Estrategia de usuario y diseño de experiencia
+- **🎨 Marketing**: Buyer persona, Customer journey y campañas online
 - **📊 Data Science**: Análisis de datos y algoritmos de optimización  
 - **🔒 Ciberseguridad**: Implementación de medidas de seguridad robustas
-- **💻 Full-Stack**: Desarrollo completo de la aplicación web
+- **💻 Full-Stack**: Desarrollo completo de la aplicación web y diseño de UI
 
 La plataforma permite a las empresas optimizar sus gastos de combustible, monitorear el rendimiento de conductores y obtener insights valiosos sobre el uso de su flota vehicular.
 
@@ -90,16 +90,16 @@ El proyecto incluye una landing page completamente funcional con:
 ## 🏗️ Arquitectura del Sistema
 
 ```
-┌─────────────────────┐    ┌─────────────────────┐    ┌─────────────────────┐
-│                     │    │                     │    │                     │
-│   Landing Page      │    │  Authentication     │    │  Manager Dashboard  │
-│                     │    │                     │    │                     │
-│ • Hero Section      │────│ • Login Form        │────│ • Fleet Stats       │
-│ • Features          │    │ • Register Form     │    │ • Real-time Table   │
-│ • Statistics        │    │ • Token Management  │    │ • Charts & Analytics│
-│ • CTA Section       │    │ • Session Control   │    │ • Driver Performance│
-│                     │    │                     │    │ • Alerts System    │
-└─────────────────────┘    └─────────────────────┘    └─────────────────────┘
+┌─────────────────────┐    ┌─────────────────────┐    ┌─────────────────────┐    ┌─────────────────────────┐
+│                     │    │                     │    │                     │    │                         │
+│   Landing Page      │    │  Authentication     │    │    OCR Scanner      │    │       Dashboards        │
+│                     │    │                     │    │                     │    │    (Driver & Manager)   │
+│ • Hero Section      │────│ • Login Form        │────│ • Camera / Upload   │────│ • KPIs, Charts, Tables  │
+│ • Features          │    │ • Register Form     │    │ • Tesseract.js OCR  │    │ • Fleet & Driver Views  │
+│ • Statistics        │    │ • Token Management  │    │ • Ticket Validation │    │ • Alerts & Actions      │
+│ • CTA Section       │    │ • Session Control   │    │ • Local Storage     │    │ • Exports (futuro)      │
+│                     │    │                     │    │                     │    │                         │
+└─────────────────────┘    └─────────────────────┘    └─────────────────────┘    └─────────────────────────┘
 ```
 
 ---
@@ -110,20 +110,26 @@ El proyecto incluye una landing page completamente funcional con:
 - **React 19.1.1** - Biblioteca principal para UI
 - **Vite 7.1.7** - Build tool ultrarrápido
 - **React Router DOM 7.9.2** - Enrutamiento SPA
-- **Redux Toolkit 9.2.0** - Gestión de estado global
+- **Redux Toolkit 2.9.0** - Gestión de estado global
 
 ### UI y Diseño
 - **SCSS/Sass 1.93.2** - Preprocesador CSS
 - **Lucide React 0.544.0** - Biblioteca de iconos moderna
 - **Recharts 3.2.1** - Gráficos y visualización de datos
+- **react-hot-toast 2.6.0** - Notificaciones
+
+### Multimedia y OCR
+- **react-webcam 7.2.0** - Captura de cámara desde el navegador
+- **tesseract.js 6.0.1** - OCR en cliente (spa+eng)
 
 ### Desarrollo
 - **ESLint 9.35.0** - Linter para calidad de código
 - **Vite Plugin React 5.0.3** - Integración React + Vite
 
 ### HTTP y API
-- **Axios** - Cliente HTTP con interceptores automáticos
+- **Axios 1.12.2** - Cliente HTTP con interceptores automáticos
 - **Token Refresh automático** - Gestión transparente de sesiones
+- **Alias de imports `@`** configurado en `vite.config.js`
 
 ---
 
@@ -149,10 +155,9 @@ npm install
 ### 3️⃣ Configurar Variables de Entorno
 ```bash
 # Crear archivo .env en la raíz del proyecto
-cp src/config/example.env.js .env
-
-# Configurar URL del backend
+cat > .env << 'EOF'
 VITE_API_URL=http://localhost:5000
+EOF
 ```
 
 ### 4️⃣ Iniciar Servidor de Desarrollo
@@ -160,7 +165,7 @@ VITE_API_URL=http://localhost:5000
 npm run dev
 ```
 
-La aplicación estará disponible en `http://localhost:5173`
+La aplicación estará disponible en `http://localhost:5173` (puerto fijado en `vite.config.js`).
 
 ---
 
@@ -209,6 +214,7 @@ src/
 ├── components/            # Componentes reutilizables
 │   ├── common/           # Componentes comunes
 │   ├── dashboard/        # Componentes del dashboard
+│   ├── camera/           # Cámara con OCR y validación
 │   ├── login/           # Formularios de autenticación
 │   ├── register/
 │   └── ui/              # Componentes UI base
@@ -217,8 +223,8 @@ src/
 ├── features/            # Slices de Redux
 │   └── auth/
 ├── lib/                 # Utilidades y configuraciones
-│   ├── api.js          # Cliente HTTP con interceptores
-│   └── token.js        # Gestión de tokens
+│   ├── api.js          # Cliente HTTP con interceptores y refresh
+│   └── token.js        # Gestión de access token en memoria
 ├── pages/              # Páginas principales
 ├── sections/           # Secciones de la landing
 ├── services/           # Servicios de negocio
@@ -226,7 +232,31 @@ src/
 │   ├── components/     # Estilos por componente
 │   └── sections/       # Estilos por sección
 └── utils/              # Utilidades generales
+    └── ticketValidator.js  # Lógica OCR (Tesseract) y heurísticas
 ```
+
+---
+
+## 📷 Escáner de Tickets (OCR)
+
+El proyecto incluye un flujo de escaneo de tickets con cámara o subida de imagen:
+
+- Página `EscanerPage` en `/app/` con subida de imagen y validación automática
+- Componente `Camera` en `/app/camera` con captura desde dispositivo y OCR
+- OCR con `tesseract.js` (idiomas `spa+eng`), normalización de texto y heurísticas de verificación
+- Persistencia local de tickets procesados en `localStorage`
+
+Rutas relevantes:
+
+```text
+/                  → Landing (Index)
+/manager          → ManagerDashboard
+/driver           → DriverDashboard
+/app/             → EscanerPage (subida de imagen)
+/app/camera       → Camera (captura en vivo)
+```
+
+Archivos clave: `src/components/camera/Camera.jsx`, `src/pages/EscanerPage.jsx`, `src/components/utils/ticketValidator.js`.
 
 ---
 
@@ -266,24 +296,28 @@ const fleetStats = {
 ## 🔐 Sistema de Autenticación
 
 ### 🎫 Gestión de Tokens
-- **Access Token**: Para autenticación de requests
-- **Refresh Token**: Para renovación automática de sesión
-- **Interceptores HTTP**: Manejo transparente de tokens
+- **Access Token**: Se guarda en memoria (no en `localStorage`) para minimizar riesgos XSS
+- **Refresh Token**: Cookie HTTP-only manejada por el backend (se envía con `withCredentials`)
+- **Interceptores HTTP**: Reintenta con refresh automático ante 401, con cola para solicitudes concurrentes
 
 ### 🔄 Flujo de Autenticación
 ```javascript
 // Ejemplo del flujo de auth
 1. Login → Recibe access token + refresh token
-2. Requests automáticos → Incluye access token
-3. Token expira → Interceptor renueva automáticamente
-4. Refresh falla → Logout automático
+2. Requests automáticos → Incluyen `Authorization: Bearer <access>` y `withCredentials`
+3. Token expira → Interceptor llama a `/auth/refresh-token`, actualiza access y reintenta
+4. Refresh falla → Limpieza de access en memoria y error para forzar logout
 ```
 
 ### 🛡️ Seguridad
-- **Tokens HTTP-only** para mayor seguridad
-- **Validación automática** de sesiones
-- **Logout seguro** con limpieza completa
-- **Protección CSRF** con cookies secure
+- **Access en memoria** via `src/lib/token.js`
+- **Refresh en cookie HTTP-only** vía backend (CORS + `withCredentials` habilitado)
+- **Validación automática** al inicio mediante `bootstrapSession`
+- **Logout seguro** limpiando access en memoria
+
+### 🔧 Puntos de integración
+- Rutas backend esperadas: `/auth/login`, `/auth/refresh-token`, `/users/me`
+- Archivo clave: `src/lib/api.js` (interceptores y reintentos)
 
 ---
 
@@ -293,10 +327,10 @@ const fleetStats = {
 **OnTrack** es el resultado del trabajo colaborativo entre cuatro equipos especializados en el marco del Desafío Final de The Bridge. Cada equipo aportó su expertise específica para crear una solución integral:
 
 #### 🎨 **Equipo de Marketing**
-- **UX/UI Research**: Investigación de usuarios y análisis de mercado
-- **Brand Strategy**: Desarrollo de identidad visual y posicionamiento
-- **User Journey**: Diseño de experiencia de usuario optimizada
-- **Content Strategy**: Estrategia de contenidos y copy persuasivo
+- **Buyer Persona**: Definición de perfiles de cliente
+- **Customer Journey**: Mapeo del recorrido del cliente
+- **Campañas Online**: Planificación y activación de campañas
+- **Estrategia de Contenidos**: Mensajes y copy persuasivo
 
 #### 📊 **Equipo de Data Science**
 - **Algoritmos de Optimización**: Modelos para eficiencia de combustible
@@ -312,6 +346,7 @@ const fleetStats = {
 
 #### 💻 **Equipo Full-Stack** (Este Repositorio)
 - **Frontend Development**: React + Redux + Vite
+- **UI Design**: Diseño e implementación de la interfaz
 - **API Integration**: Cliente HTTP con interceptores
 - **State Management**: Gestión completa del estado global
 - **Responsive Design**: Interfaz adaptable y moderna
@@ -341,7 +376,7 @@ npm run lint           # Ejecuta ESLint
 npm run preview        # Preview del build de producción
 
 # Documentación
-npm run dashboard:readme:pdf  # Genera PDF del README
+npm run dashboard:readme:pdf  # (Requiere README_mongodb_dashboard.md y md-to-pdf-config.json)
 ```
 
 ---
@@ -358,7 +393,15 @@ El cliente HTTP está configurado con:
 - **Base URL**: Configurable via `VITE_API_URL`
 - **Timeout**: 15 segundos
 - **Credentials**: Incluidas automáticamente
-- **Interceptores**: Para auth y error handling
+- **Interceptores**: Para auth, refresh y reintentos (cola concurrente)
+
+### 🔩 Alias de imports
+Se define un alias `@` a la carpeta `src/` en `vite.config.js` para imports limpios:
+
+```js
+// vite.config.js
+resolve: { alias: { '@': path.resolve(__dirname, 'src') } }
+```
 
 ---
 
