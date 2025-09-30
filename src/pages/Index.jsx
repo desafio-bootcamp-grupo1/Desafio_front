@@ -9,9 +9,17 @@ import Footer from "../sections/Footer";
 
 import LoginForm from "../components/login/LoginForm";
 import RegisterForm from "../components/register/RegisterForm";
+import ConfirmEmailModal from "../components/common/ConfirmEmailModal";
 
 export default function Index() {
   const [modal, setModal] = useState(null);
+
+  // Listen to a custom event fired after successful registration to open confirm modal
+  React.useEffect(() => {
+    const handler = () => setModal("confirm-email");
+    window.addEventListener("open-confirm-email", handler);
+    return () => window.removeEventListener("open-confirm-email", handler);
+  }, []);
 
   const openLogin = () => setModal("login");
   const openRegister = () => setModal("register");
@@ -31,6 +39,10 @@ export default function Index() {
 
       {modal === "register" && (
         <RegisterForm onClose={closeModal} openLogin={openLogin} />
+      )}
+
+      {modal === "confirm-email" && (
+        <ConfirmEmailModal onClose={closeModal} onLogin={openLogin} />
       )}
     </div>
   );
