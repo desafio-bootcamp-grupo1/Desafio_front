@@ -1,16 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/profile.scss";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { setDriverProfile } from "@/features/auth/driverProfileSlice";
+import { useNavigate } from "react-router-dom";
 
 // Íconos de lucide-react
 import { User, Car, Settings, Bell, TrafficCone, BarChart, Lock, Star } from "lucide-react";
 
 export default function Profile() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Obtener perfil desde Redux
+  const savedProfile = useSelector((state) => state.driverProfile.profile);
+
   const [user, setUser] = useState({
-    nombre: "Carlos",
-    apellido: "Martínez",
-    email: "carlos@example.com",
-    telefono: "600123456",
-    empresa: "BitBizkaia",
+    nombre: "",
+    apellido: "",
+    email: "",
+    telefono: "",
+    empresa: "",
     departamento: "",
     createdAt: new Date().toISOString(),
     avatar: null,
@@ -31,6 +42,37 @@ export default function Profile() {
     modoPrivacidad: false,
   });
 
+  // Sincronizar estados con Redux al montar el componente
+  useEffect(() => {
+    if (savedProfile) {
+      setUser({
+        nombre: savedProfile.firstName || "",
+        apellido: savedProfile.lastName || "",
+        email: savedProfile.email || "",
+        telefono: savedProfile.phone || "",
+        empresa: savedProfile.empresa || "",
+        departamento: savedProfile.departamento || "",
+        avatar: savedProfile.avatar || null,
+        createdAt: savedProfile.createdAt || new Date().toISOString(),
+      });
+
+      setVehiculo({
+        marca: savedProfile.vehicle?.brand || "",
+        modelo: savedProfile.vehicle?.model || "",
+        año: savedProfile.vehicle?.year || "",
+        matricula: savedProfile.vehicle?.plate || "",
+        tipoCombustible: savedProfile.vehicle?.fuelType || "",
+      });
+
+      setPreferencias({
+        notificacionesPush: savedProfile.preferences?.notificacionesPush || false,
+        alertasTrafico: savedProfile.preferences?.alertasTrafico || false,
+        reportesSemanales: savedProfile.preferences?.reportesSemanales || false,
+        modoPrivacidad: savedProfile.preferences?.modoPrivacidad || false,
+      });
+    }
+  }, [savedProfile]);
+
   const handleChangeUser = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -50,14 +92,36 @@ export default function Profile() {
     }
   };
 
+  const handleSave = () => {
+    const profileToSave = {
+      firstName: user.nombre,
+      lastName: user.apellido,
+      email: user.email,
+      phone: user.telefono,
+      empresa: user.empresa,
+      departamento: user.departamento,
+      avatar: user.avatar,
+      createdAt: user.createdAt,
+      vehicle: {
+        brand: vehiculo.marca,
+        model: vehiculo.modelo,
+        year: vehiculo.año,
+        plate: vehiculo.matricula,
+        fuelType: vehiculo.tipoCombustible,
+      },
+      preferences: preferencias,
+    };
+
+    dispatch(setDriverProfile(profileToSave));
+    navigate("/driver");
+  };
+
   return (
     <div className="profile-page">
-      {/* Título */}
       <div className="perfil-header">
         <h1>Mi Perfil</h1>
       </div>
 
-      {/* Avatar + info usuario + membresía */}
       <div className="info-usuario">
         <label className="avatar-upload">
           {user.avatar ? (
@@ -83,7 +147,6 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Información personal */}
       <div className="seccion-perfil">
         <h2>
           <User size={18} /> Información Personal
@@ -116,7 +179,6 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Vehículo */}
       <div className="seccion-perfil">
         <h2>
           <Car size={18} /> Información del Vehículo
@@ -145,7 +207,6 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Preferencias */}
       <div className="seccion-perfil">
         <h2>
           <Settings size={18} /> Preferencias
@@ -208,6 +269,11 @@ export default function Profile() {
             </label>
           </li>
         </ul>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "flex-end", gap: "1rem", marginTop: "1rem" }}>
+        <button className="btn btn--primary" onClick={handleSave}>Guardar datos</button>
+        <button className="btn btn--secondary" onClick={() => navigate(-1)}>Cancelar</button>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Footer from "../sections/Footer";
 import { Card, CardContent } from "../components/ui/Card";
@@ -12,19 +13,6 @@ import HeaderDriver from "../components/header/Header";
 
 import { Ticket, Fuel, DollarSign, Droplet } from "lucide-react"; 
 import "../styles/components/_driver-dashboard.scss";
-
-const driverProfile = {
-  firstName: "Miguel",
-  lastName: "Hernández",
-  driverId: "D-1024",
-  vehicle: {
-    brand: "Toyota",
-    model: "Corolla",
-    year: 2020,
-    plate: "1234-ABC",
-    fuelType: "Gasolina",
-  },
-};
 
 const monthSummary = {
   scans: 24,
@@ -58,6 +46,8 @@ const recentTicketsData = [
 
 export default function DriverDashboard() {
   const navigate = useNavigate();
+  const driverProfile = useSelector((state) => state.driverProfile);
+
   const { vehicle } = driverProfile;
 
   const handleLogout = () => {
@@ -97,7 +87,9 @@ export default function DriverDashboard() {
                 <h2 className="driver-profile__name">
                   {driverProfile.firstName} {driverProfile.lastName}
                 </h2>
-                <p className="driver-profile__id">ID: {driverProfile.driverId}</p>
+                {driverProfile.driverId && (
+                  <p className="driver-profile__id">ID: {driverProfile.driverId}</p>
+                )}
               </div>
               <div>
                 <button
@@ -110,46 +102,48 @@ export default function DriverDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="card vehicle-info-card" style={{ marginTop: "1.5rem" }}>
-            <CardContent className="vehicle-info__content">
-              <h3
-                className="vehicle-info__title"
-                style={{ marginTop: "1rem", marginBottom: "0.8rem" }}
-              >
-                Información del vehículo
-              </h3>
-              <div
-                className="vehicle-info__details"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-                  gap: "1rem",
-                  marginTop: "0.5rem",
-                }}
-              >
-                <p>
-                  <strong style={{ color: "var(--coral)" }}>Marca:</strong>{" "}
-                  {vehicle.brand}
-                </p>
-                <p>
-                  <strong style={{ color: "var(--coral)" }}>Modelo:</strong>{" "}
-                  {vehicle.model}
-                </p>
-                <p>
-                  <strong style={{ color: "var(--coral)" }}>Año:</strong>{" "}
-                  {vehicle.year}
-                </p>
-                <p>
-                  <strong style={{ color: "var(--coral)" }}>Matrícula:</strong>{" "}
-                  {vehicle.plate}
-                </p>
-                <p>
-                  <strong style={{ color: "var(--coral)" }}>Combustible:</strong>{" "}
-                  {vehicle.fuelType}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+          {vehicle && (
+            <Card className="card vehicle-info-card" style={{ marginTop: "1.5rem" }}>
+              <CardContent className="vehicle-info__content">
+                <h3
+                  className="vehicle-info__title"
+                  style={{ marginTop: "1rem", marginBottom: "0.8rem" }}
+                >
+                  Información del vehículo
+                </h3>
+                <div
+                  className="vehicle-info__details"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                    gap: "1rem",
+                    marginTop: "0.5rem",
+                  }}
+                >
+                  <p>
+                    <strong style={{ color: "var(--coral)" }}>Marca:</strong>{" "}
+                    {vehicle.brand}
+                  </p>
+                  <p>
+                    <strong style={{ color: "var(--coral)" }}>Modelo:</strong>{" "}
+                    {vehicle.model}
+                  </p>
+                  <p>
+                    <strong style={{ color: "var(--coral)" }}>Año:</strong>{" "}
+                    {vehicle.year}
+                  </p>
+                  <p>
+                    <strong style={{ color: "var(--coral)" }}>Matrícula:</strong>{" "}
+                    {vehicle.plate}
+                  </p>
+                  <p>
+                    <strong style={{ color: "var(--coral)" }}>Combustible:</strong>{" "}
+                    {vehicle.fuelType}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         <section className="driver-summary">
@@ -190,8 +184,8 @@ export default function DriverDashboard() {
           <RecentTickets tickets={recentTicketsData} />
           <AchievementsCard />
         </div>
-  
       </section>
+
       <Footer />
     </>
   );
