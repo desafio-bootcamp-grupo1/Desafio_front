@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerThunk } from "@/features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
 import "./register.scss";
 
 export default function RegisterForm({ onClose, openLogin }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,7 +12,7 @@ export default function RegisterForm({ onClose, openLogin }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agree, setAgree] = useState(false);
   const [showPass, setShowPass] = useState(false);
-  const [showConfirmPass, setShowConfirmPass] = useState(false);
+  const [showConfirmPass] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -61,7 +59,9 @@ export default function RegisterForm({ onClose, openLogin }) {
       
       if (result?.user) {
         onClose();
-        navigate('/driver');
+        // After registering, show fake confirmation modal instead of navigating
+        // The parent page controls modals; trigger it via custom event
+        window.dispatchEvent(new CustomEvent('open-confirm-email'));
       } else {
         throw new Error('No se recibieron los datos del usuario');
       }
