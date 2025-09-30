@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logoutThunk } from "@/features/auth/authSlice";
 import { LogOut, BarChart3, User, Menu, X } from "lucide-react";
@@ -11,10 +11,19 @@ export default function HeaderDriver({ onLogout, userType = 'driver' }) {
   const dispatch = useDispatch();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768 && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [mobileMenuOpen]);
+
   const goToDashboard = () => navigate(`/${userType}`);
   const goToProfile = () => navigate(`/${userType}/profile`);
   const handleLogout = () => {
-    // Prefer Redux logout if available; fallback to prop
     dispatch(logoutThunk()).finally(() => {
       if (onLogout) onLogout();
       navigate("/");
@@ -26,7 +35,7 @@ export default function HeaderDriver({ onLogout, userType = 'driver' }) {
     <header className="header2">
       <div className="container header2__inner">
 
-        {/* Hamburger Mobile */}
+      
         <button
           className="header2__hamburger"
           onClick={toggleMobileMenu}
@@ -35,7 +44,7 @@ export default function HeaderDriver({ onLogout, userType = 'driver' }) {
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
-        {/* Desktop / Center nav */}
+        
         <nav className="header2__nav">
           <Button
             variant="light"
@@ -53,7 +62,7 @@ export default function HeaderDriver({ onLogout, userType = 'driver' }) {
           </Button>
         </nav>
 
-        {/* Logout always at right */}
+      
         <div className="header2__actions">
           <Button
             variant="outline"
@@ -66,7 +75,6 @@ export default function HeaderDriver({ onLogout, userType = 'driver' }) {
         </div>
       </div>
 
-      {/* Mobile dropdown */}
       {mobileMenuOpen && (
         <div className="header2__mobile-menu">
           <Button
