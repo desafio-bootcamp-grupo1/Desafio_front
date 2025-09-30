@@ -1,13 +1,15 @@
+@use "sass:color";
 @use "./variables.scss" as *;
 
 .profile-page {
   width: 420px;
+  max-width: 100%;
   margin: 50px auto;
   padding: $space-lg;
   background-color: $color-white;
   border: 1px solid $color-gray;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba($color-black, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba($color-black, 0.08);
   font-family: $font-family-base;
 }
 
@@ -17,40 +19,41 @@
 
   h1 {
     font-size: 1.6rem;
+    font-weight: 600;
     color: $color-primary-dark;
   }
 }
 
-/* Bloque avatar + nombre + empresa + membresía */
 .info-usuario {
   display: flex;
   align-items: center;
   gap: $space-md;
-  margin-bottom: $space-md;
+  margin-bottom: $space-lg;
 
   .avatar-upload {
     position: relative;
     cursor: pointer;
 
-    .avatar-img {
-      width: 60px;
-      height: 60px;
+    .avatar-img,
+    .avatar-placeholder {
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .avatar-img {
       object-fit: cover;
       border: 2px solid $color-primary;
     }
 
     .avatar-placeholder {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
       background: $color-primary;
       color: $color-white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       font-weight: bold;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
     }
 
     input {
@@ -65,7 +68,7 @@
 
     h3 {
       margin: 0;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: $color-primary-dark;
     }
 
@@ -82,7 +85,7 @@
       margin-top: $space-xs;
 
       small {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         color: $color-gray-dark;
       }
     }
@@ -97,6 +100,7 @@
     align-items: center;
     gap: $space-xs;
     font-size: 1.1rem;
+    font-weight: 600;
     margin-bottom: $space-md;
     color: $color-primary;
   }
@@ -112,7 +116,7 @@
 
       label {
         font-size: 0.9rem;
-        font-weight: bold;
+        font-weight: 600;
         margin-bottom: $space-xs;
         color: $color-gray-dark;
       }
@@ -123,17 +127,18 @@
         border-radius: 6px;
         font-size: 0.95rem;
         color: $color-black;
+        transition: border-color 0.2s, box-shadow 0.2s;
 
         &:focus {
           border-color: $color-primary;
           outline: none;
+          box-shadow: 0 0 0 3px rgba($color-primary, 0.2);
         }
       }
     }
   }
 }
 
-/* Lista de preferencias */
 .preferencias-lista {
   list-style: none;
   padding: 0;
@@ -155,6 +160,7 @@
       align-items: center;
       gap: $space-xs;
       color: $color-black;
+      font-size: 0.95rem;
 
       svg {
         color: $color-primary;
@@ -165,13 +171,12 @@
 
     p {
       margin: 0;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: $color-gray-dark;
     }
   }
 }
 
-/* Switch dinámico */
 .switch {
   position: relative;
   display: inline-block;
@@ -214,5 +219,70 @@
     &:before {
       transform: translateX(20px);
     }
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: $space-sm $space-lg;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+
+  &--primary {
+    background-color: $color-primary;
+    color: $color-white;
+    border: none;
+
+    &:hover {
+      background-color: color.adjust($color-primary, $lightness: -7%);
+    }
+  }
+
+  &--secondary {
+    background-color: var(--gray-light);
+    color: $color-black;
+    border: 1px solid $color-gray;
+
+    &:hover {
+      background-color: color.adjust($color-gray, $lightness: 35%);
+    }
+  }
+}
+
+/* Responsive Mobile */
+@media (max-width: 480px) {
+  .profile-page {
+    margin: 20px 10px;
+    padding: $space-md;
+  }
+
+  .info-usuario {
+    flex-direction: column;
+    align-items: center;
+    gap: $space-sm;
+
+    .usuario-detalles {
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  .seccion-perfil .campos-grid .campo input {
+    font-size: 0.9rem;
+    padding: $space-xs $space-sm;
+  }
+
+  .perfil-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
   }
 }
