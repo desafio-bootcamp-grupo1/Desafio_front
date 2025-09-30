@@ -42,7 +42,17 @@ export default function RegisterForm({ onClose, openLogin }) {
     }
     
     try {
-      const username = `${firstName.trim()} ${lastName.trim()}`;
+      // Build username from first and last name and sanitize to match backend: /^[a-zA-Z0-9_]+$/ with length 3-20
+      const rawUsername = `${firstName.trim()}_${lastName.trim()}`;
+      const sanitized = rawUsername
+        .toLowerCase()
+        .replace(/[^a-z0-9_]/g, "_") // only letters, numbers, underscore
+        .replace(/_+/g, "_") // collapse multiple underscores
+        .replace(/^_+|_+$/g, ""); // trim underscores
+      const username = sanitized.length < 3
+        ? (sanitized + "___").slice(0, 3) // ensure min length 3
+        : sanitized.slice(0, 20); // ensure max length 20
+
       const result = await dispatch(registerThunk({ 
         email: email.trim().toLowerCase(),
         password,
