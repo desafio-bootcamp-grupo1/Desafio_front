@@ -1,8 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../styles/profile.scss";
 
+// Íconos de lucide-react
+import { User, Car, Settings, Bell, TrafficCone, BarChart, Lock, Star } from "lucide-react";
+
 export default function Profile() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    nombre: "Carlos",
+    apellido: "Martínez",
+    email: "carlos@example.com",
+    telefono: "600123456",
+    empresa: "BitBizkaia",
+    departamento: "",
+    createdAt: new Date().toISOString(),
+    avatar: null,
+  });
+
   const [vehiculo, setVehiculo] = useState({
     marca: "",
     modelo: "",
@@ -18,134 +31,182 @@ export default function Profile() {
     modoPrivacidad: false,
   });
 
-  // 🔹 Simulación: obtener datos del backend (fetch a /api/users/me)
-  useEffect(() => {
-    async function fetchUserData() {
-      try {
-        const res = await fetch("http://localhost:4000/api/users/me", {
-          credentials: "include",
-        });
-        const data = await res.json();
+  const handleChangeUser = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
-        setUser(data.user);
-        if (data.vehiculo) setVehiculo(data.vehiculo);
-        if (data.preferencias) setPreferencias(data.preferencias);
-      } catch (err) {
-        console.error("Error al cargar usuario:", err);
-      }
-    }
-    fetchUserData();
-  }, []);
-
-  const handleVehiculoChange = (e) => {
+  const handleChangeVehiculo = (e) => {
     setVehiculo({ ...vehiculo, [e.target.name]: e.target.value });
   };
 
-  const handlePreferenciaChange = (pref) => {
+  const handleTogglePref = (pref) => {
     setPreferencias({ ...preferencias, [pref]: !preferencias[pref] });
   };
 
-  if (!user) return <p>Cargando perfil...</p>;
+  const handleAvatarUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setUser({ ...user, avatar: URL.createObjectURL(file) });
+    }
+  };
 
   return (
     <div className="profile-page">
+      {/* Título */}
       <div className="perfil-header">
         <h1>Mi Perfil</h1>
       </div>
 
-      {/* Información personal */}
-      <div className="seccion-perfil">
-        <h2>🧑‍💼 Información Personal</h2>
-        <div className="info-usuario">
-          <div className="avatar">
-            {user.nombre.charAt(0)}
-            {user.apellido ? user.apellido.charAt(0) : ""}
-          </div>
-          <div>
-            <h3>
-              {user.nombre} {user.apellido}
-            </h3>
-            <p>{user.empresa || "Empresa no registrada"}</p>
-            <small>⭐ Miembro desde {new Date(user.createdAt).toLocaleDateString()}</small>
+      {/* Avatar + info usuario + membresía */}
+      <div className="info-usuario">
+        <label className="avatar-upload">
+          {user.avatar ? (
+            <img src={user.avatar} alt="Avatar" className="avatar-img" />
+          ) : (
+            <div className="avatar-placeholder">
+              {user.nombre.charAt(0)}
+              {user.apellido.charAt(0)}
+            </div>
+          )}
+          <input type="file" accept="image/*" onChange={handleAvatarUpload} hidden />
+        </label>
+
+        <div className="usuario-detalles">
+          <h3>
+            {user.nombre} {user.apellido}
+          </h3>
+          <p className="empresa">{user.empresa}</p>
+          <div className="membresia">
+            <Star size={16} color="#f5b301" fill="#f5b301" />
+            <small>Miembro desde {new Date(user.createdAt).toLocaleDateString()}</small>
           </div>
         </div>
+      </div>
 
+      {/* Información personal */}
+      <div className="seccion-perfil">
+        <h2>
+          <User size={18} /> Información Personal
+        </h2>
         <div className="campos-grid">
           <div className="campo">
-            <label>Nombre completo</label>
-            <input type="text" value={user.nombre} readOnly />
+            <label>Nombre</label>
+            <input type="text" name="nombre" value={user.nombre} onChange={handleChangeUser} />
+          </div>
+          <div className="campo">
+            <label>Apellido</label>
+            <input type="text" name="apellido" value={user.apellido} onChange={handleChangeUser} />
           </div>
           <div className="campo">
             <label>Email</label>
-            <input type="email" value={user.email} readOnly />
+            <input type="email" name="email" value={user.email} readOnly />
           </div>
           <div className="campo">
             <label>Teléfono</label>
-            <input type="tel" value={user.telefono || ""} readOnly />
+            <input type="tel" name="telefono" value={user.telefono} onChange={handleChangeUser} />
           </div>
           <div className="campo">
             <label>Departamento</label>
-            <input type="text" value={user.departamento || ""} readOnly />
+            <input type="text" name="departamento" value={user.departamento} onChange={handleChangeUser} />
           </div>
           <div className="campo">
             <label>Empresa</label>
-            <input type="text" value={user.empresa || ""} readOnly />
+            <input type="text" name="empresa" value={user.empresa} onChange={handleChangeUser} />
           </div>
         </div>
       </div>
 
       {/* Vehículo */}
       <div className="seccion-perfil">
-        <h2>🚗 Información del Vehículo</h2>
+        <h2>
+          <Car size={18} /> Información del Vehículo
+        </h2>
         <div className="campos-grid">
           <div className="campo">
             <label>Marca</label>
-            <input type="text" name="marca" value={vehiculo.marca} onChange={handleVehiculoChange} />
+            <input type="text" name="marca" value={vehiculo.marca} onChange={handleChangeVehiculo} />
           </div>
           <div className="campo">
             <label>Modelo</label>
-            <input type="text" name="modelo" value={vehiculo.modelo} onChange={handleVehiculoChange} />
+            <input type="text" name="modelo" value={vehiculo.modelo} onChange={handleChangeVehiculo} />
           </div>
           <div className="campo">
             <label>Año</label>
-            <input type="text" name="año" value={vehiculo.año} onChange={handleVehiculoChange} />
+            <input type="text" name="año" value={vehiculo.año} onChange={handleChangeVehiculo} />
           </div>
           <div className="campo">
             <label>Matrícula</label>
-            <input type="text" name="matricula" value={vehiculo.matricula} onChange={handleVehiculoChange} />
+            <input type="text" name="matricula" value={vehiculo.matricula} onChange={handleChangeVehiculo} />
           </div>
           <div className="campo">
             <label>Tipo de Combustible</label>
-            <input type="text" name="tipoCombustible" value={vehiculo.tipoCombustible} onChange={handleVehiculoChange} />
+            <input type="text" name="tipoCombustible" value={vehiculo.tipoCombustible} onChange={handleChangeVehiculo} />
           </div>
         </div>
       </div>
 
       {/* Preferencias */}
       <div className="seccion-perfil">
-        <h2>⚙️ Preferencias</h2>
+        <h2>
+          <Settings size={18} /> Preferencias
+        </h2>
         <ul className="preferencias-lista">
-          {[
-            { key: "notificacionesPush", label: "🔔 Notificaciones push", desc: "Recibe alertas importantes" },
-            { key: "alertasTrafico", label: "🚦 Alertas de tráfico", desc: "Avisos sobre congestiones" },
-            { key: "reportesSemanales", label: "📊 Reportes semanales", desc: "Resumen de tu rendimiento" },
-            { key: "modoPrivacidad", label: "🔒 Modo privacidad", desc: "Ocultar ubicación en tiempo real" },
-          ].map((pref) => (
-            <li key={pref.key}>
-              <div>
-                <strong>{pref.label}</strong>
-                <p>{pref.desc}</p>
-              </div>
-              <label className="switch">
-                <input
-                  type="checkbox"
-                  checked={preferencias[pref.key]}
-                  onChange={() => handlePreferenciaChange(pref.key)}
-                />
-                <span className="slider"></span>
-              </label>
-            </li>
-          ))}
+          <li>
+            <div>
+              <strong><Bell size={16}/> Notificaciones push</strong>
+              <p>Recibe alertas importantes</p>
+            </div>
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={preferencias.notificacionesPush}
+                onChange={() => handleTogglePref("notificacionesPush")}
+              />
+              <span className="slider"></span>
+            </label>
+          </li>
+          <li>
+            <div>
+              <strong><TrafficCone size={16}/> Alertas de tráfico</strong>
+              <p>Avisos sobre congestiones</p>
+            </div>
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={preferencias.alertasTrafico}
+                onChange={() => handleTogglePref("alertasTrafico")}
+              />
+              <span className="slider"></span>
+            </label>
+          </li>
+          <li>
+            <div>
+              <strong><BarChart size={16}/> Reportes semanales</strong>
+              <p>Resumen de tu rendimiento</p>
+            </div>
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={preferencias.reportesSemanales}
+                onChange={() => handleTogglePref("reportesSemanales")}
+              />
+              <span className="slider"></span>
+            </label>
+          </li>
+          <li>
+            <div>
+              <strong><Lock size={16}/> Modo privacidad</strong>
+              <p>Ocultar ubicación en tiempo real</p>
+            </div>
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={preferencias.modoPrivacidad}
+                onChange={() => handleTogglePref("modoPrivacidad")}
+              />
+              <span className="slider"></span>
+            </label>
+          </li>
         </ul>
       </div>
     </div>

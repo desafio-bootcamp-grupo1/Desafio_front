@@ -1,7 +1,177 @@
 @use "./variables.scss" as *;
 
-/* ...tu estilo anterior... */
+.profile-page {
+  width: 420px;
+  margin: 50px auto;
+  padding: $space-lg;
+  background-color: $color-white;
+  border: 1px solid $color-gray;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba($color-black, 0.1);
+  font-family: $font-family-base;
+}
 
+.perfil-header {
+  text-align: center;
+  margin-bottom: $space-lg;
+
+  h1 {
+    font-size: 1.6rem;
+    color: $color-primary-dark;
+  }
+}
+
+/* Bloque avatar + nombre + empresa + membresía */
+.info-usuario {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+  margin-bottom: $space-md;
+
+  .avatar-upload {
+    position: relative;
+    cursor: pointer;
+
+    .avatar-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid $color-primary;
+    }
+
+    .avatar-placeholder {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: $color-primary;
+      color: $color-white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    input {
+      display: none;
+    }
+  }
+
+  .usuario-detalles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: $color-primary-dark;
+    }
+
+    .empresa {
+      margin: 0;
+      font-size: 0.9rem;
+      color: $color-gray-dark;
+    }
+
+    .membresia {
+      display: flex;
+      align-items: center;
+      gap: $space-xs;
+      margin-top: $space-xs;
+
+      small {
+        font-size: 0.85rem;
+        color: $color-gray-dark;
+      }
+    }
+  }
+}
+
+.seccion-perfil {
+  margin-bottom: $space-lg;
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+    font-size: 1.1rem;
+    margin-bottom: $space-md;
+    color: $color-primary;
+  }
+
+  .campos-grid {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-size: 0.9rem;
+        font-weight: bold;
+        margin-bottom: $space-xs;
+        color: $color-gray-dark;
+      }
+
+      input {
+        padding: $space-sm $space-md;
+        border: 1px solid $color-gray;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        color: $color-black;
+
+        &:focus {
+          border-color: $color-primary;
+          outline: none;
+        }
+      }
+    }
+  }
+}
+
+/* Lista de preferencias */
+.preferencias-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $space-sm 0;
+    border-bottom: 1px solid $color-gray;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    strong {
+      display: flex;
+      align-items: center;
+      gap: $space-xs;
+      color: $color-black;
+
+      svg {
+        color: $color-primary;
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: $color-gray-dark;
+    }
+  }
+}
+
+/* Switch dinámico */
 .switch {
   position: relative;
   display: inline-block;
@@ -39,7 +209,7 @@
   }
 
   input:checked + .slider {
-    background-color: $color-primary-dark;
+    background-color: $color-primary;
 
     &:before {
       transform: translateX(20px);
