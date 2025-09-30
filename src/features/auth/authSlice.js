@@ -17,6 +17,21 @@ export const registerThunk = createAsyncThunk(
   }
 );
 
+// Thunk para logout
+export const logoutThunk = createAsyncThunk(
+  "auth/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      await authService.logout();
+      return true;
+    } catch (err) {
+      // Aunque falle el endpoint, limpiamos estado cliente
+      clearAccessToken();
+      return rejectWithValue(err?.response?.data || "LOGOUT_FAIL");
+    }
+  }
+);
+
 // Thunk para login
 export const loginThunk = createAsyncThunk(
   "auth/login",
@@ -100,6 +115,16 @@ const authSlice = createSlice({
       .addCase(registerThunk.rejected, (state, action) => {
         state.user = null;
         state.error = action.payload || "REGISTER_FAIL";
+      })
+      // logout
+      .addCase(logoutThunk.fulfilled, (state) => {
+        state.user = null;
+        state.error = null;
+        clearAccessToken();
+      })
+      .addCase(logoutThunk.rejected, (state) => {
+        state.user = null;
+        clearAccessToken();
       });
   },
 });

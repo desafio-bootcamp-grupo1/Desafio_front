@@ -17,7 +17,7 @@ export default function HeroSection({ onStart, onLogin }) {
             <span>Ahorra.</span>
           </h1>
           <p className="hero__subtitle">
-            La plataforma inteligente para el seguimiento y optimización de gastos de combustible en flotas corporativas
+            La plataforma inteligente para el seguimiento y optimización de gastos de combustible y recarga en flotas corporativas
           </p>
           <div className="hero__actions">
             <Button variant="light" size="lg" onClick={onStart}>Comenzar Ahora</Button>

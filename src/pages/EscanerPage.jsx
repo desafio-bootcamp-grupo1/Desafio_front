@@ -159,7 +159,7 @@ const EscanerPage = () => {
       <div className='escaner-page'>
         <div className='escaner-header'>
           <h1>Escanea tu ticket</h1>
-          <p>Utiliza la cámara para escanear  automáticamente tickets de gasolina o sube una imagen</p>
+          <p>Utiliza la cámara para escanear automáticamente tickets de combustible o recarga, o sube una imagen</p>
         </div>
 
         <input
