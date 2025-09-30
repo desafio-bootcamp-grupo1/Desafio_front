@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 import "../../styles/components/_header.scss";
 
-export default function HeaderDriver({ onLogout }) {
+export default function HeaderDriver({ onLogout, userType = 'driver' }) {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const goToDashboard = () => navigate("/driver");
-  const goToProfile = () => navigate("/driver/profile");
+  const goToDashboard = () => navigate(`/${userType}`);
+  const goToProfile = () => navigate(`/${userType}/profile`);
   const handleLogout = () => {
     onLogout();
     navigate("/");

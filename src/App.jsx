@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Index from "./pages/Index";
-import Profile from "./pages/Profile";  
+import Profile from "./pages/Profile";
+import ManagerProfile from "./pages/ManagerProfile";
 import ManagerDashboard from "./pages/ManagerDashboard";
 import DriverDashboard from "./pages/DriverDashboard"; 
 import EscanerPage from "./pages/EscanerPage";
@@ -17,8 +18,9 @@ function App() {
           {/* Página principal */}
           <Route path="/" element={<Index />} />
 
-          {/* Página de perfil */}
-          <Route path="/profile" element={<Profile />} />  
+          {/* Páginas de perfil */}
+          <Route path="/driver/profile" element={<Profile />} />
+          <Route path="/manager/profile" element={<ManagerProfile />} />
 
           {/* Dashboards y otros módulos */}
           <Route path="/manager" element={<ManagerDashboard />} />
