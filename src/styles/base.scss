@@ -6,12 +6,18 @@
 @use "./components/_button";
 @use "./components/_card";
 @use "./components/_chip";
+@use "./components/_stat-card";
+@use "./components/_dashboard-table";
+@use "./components/_header";
+@use "./components/_camera";
+@use "./components/_escaner";
 
 @use "./sections/_hero";
 @use "./sections/_features";
 @use "./sections/_stats";
 @use "./sections/_cta";
 @use "./sections/_footer";
+@use "./sections/_dashboard";
 
 /* Reset-ish */
 * { box-sizing: border-box; }
@@ -28,7 +34,15 @@ body {
 .hidden-visually { position: absolute; clip: rect(1px,1px,1px,1px); padding:0; border:0; height:1px; width:1px; overflow:hidden; }
 
 /* Shared blocks */
-.section { padding-block: 80px; background: var(--white); }
+.section { padding-block: 80px; background: var(--bg-color); }
 .section--muted { background: var(--gray-light); }
 .section__title { font-size: 2.25rem; font-weight: 700; margin: 0 0 .5rem; }
 .section__subtitle { color: var(--gray-500); font-size: 1.125rem; max-width: 720px; margin: 0 auto 2.5rem; text-align: center; }
+
+#root,body, .home{
+  background-color: var(--bg-color);
+}
+
+.home, .escaner-page,.dashboard {
+  margin-top: 100px;
+}

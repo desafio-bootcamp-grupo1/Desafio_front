@@ -1,0 +1,108 @@
+.escaner-page {
+  width: 60%;
+  margin: 100px auto;
+  background-color: var(--box-color);
+  padding: 20px;
+  border-radius: 20px;
+ box-shadow: 0 8px 20px rgba(255, 127, 80, 0.5);
+  border: 1px solid var(--box-color);
+}
+
+.escaner-header {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.escaner-options {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-family);
+
+  button {
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  button:nth-child(1) {
+    background-color: var(--coral);
+    border: 1px solid var(--coral);
+    color: #fff;
+
+    &:hover {
+      background-color: #ff7f50cc;
+      border-color: var(--coral);
+    }
+  }
+
+  button:nth-child(2) {
+    background-color: #fff;
+    border: 1px solid var(--coral);
+    color: #000;
+
+    &:hover {
+      background-color: var(--coral);
+      color: #fff;
+    }
+  }
+}
+
+/* Botones de acción sobre ticket validado */
+.ticket-action-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 15px;
+
+  button {
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--coral);
+  }
+
+  .addTicketButton {
+    background-color: var(--coral);
+    color: #fff;
+
+    &:hover {
+      background-color: #ff7f50cc;
+    }
+  }
+
+  .discardTicketButton {
+    background-color: #fff;
+    color: #000;
+
+    &:hover {
+      background-color: var(--coral);
+      color: #fff;
+    }
+  }
+}
+
+/* Vista previa responsive */
+.preview-ticket {
+  width: 100%;
+  max-width: 400px;
+  max-height: 500px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+
+  @media (max-width: 600px) {
+    max-width: 90%;
+    max-height: 350px;
+  }
+}

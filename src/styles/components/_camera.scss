@@ -1,0 +1,160 @@
+/* Camera.scss */
+
+/* Contenedor principal de la cámara o vista previa */
+.fullscreenContainer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  overflow: hidden;
+  max-width: 900px;
+  max-height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+
+/* Webcam en vivo */
+.webcam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ajusta la cámara al contenedor */
+}
+
+/* Contenedor overlay de botones y controles */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.bottomControls {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+/* Contenedor de la vista previa de la imagen capturada */
+.previewContainer {
+  width: 100%;
+  height: 100%;
+  max-width: 900px;
+  max-height: 600px;
+  background: black;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden; /* evita que la imagen se salga */
+}
+
+/* Imagen capturada */
+.capturedPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* ajusta dentro del contenedor en mobile */
+}
+
+/* Contenedor de botones de acción sobre la imagen */
+.actionButtons {
+  position: absolute;
+  bottom: 20px; /* más cercano al borde inferior */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+/* Botones aceptar / descartar */
+.acceptButton,
+.rejectButton {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  padding: 15px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid var(--coral);
+}
+
+/* Botón principal: procesar/aceptar */
+.acceptButton {
+  background-color: var(--coral);
+  color: #fff;
+
+  &:hover {
+    background-color: #ff7f50cc; 
+  }
+}
+
+/* Botón secundario: descartar */
+.rejectButton {
+  background-color: #fff;
+  color: #000;
+
+  &:hover {
+    background-color: var(--coral);
+    color: #fff;
+  }
+}
+
+/* Modal de progreso y OCR */
+.modalProgress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.85);
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+  text-align: center;
+  max-width: 80%;
+  z-index: 100;
+}
+
+.modalProgress progress {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--coral);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Mensaje de espera de permisos */
+.message {
+  text-align: center;
+  padding: 20px;
+  color: white;
+  font-size: 18px;
+}

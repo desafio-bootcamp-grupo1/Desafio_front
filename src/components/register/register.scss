@@ -1,4 +1,4 @@
-@import "@/styles/variables.scss";
+@use "@/styles/variables" as *;
 
 .modal-overlay {
   position: fixed;
@@ -16,7 +16,7 @@
   padding: 24px;
   max-width: 350px;
   width: 90%;
-  max-height: 90vh; 
+  max-height: 95vh; 
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
@@ -139,6 +139,7 @@
   .link {
     color: $color-primary;
     cursor: pointer;
+    margin-left: 4px;
 
     &:hover {
       text-decoration: underline;

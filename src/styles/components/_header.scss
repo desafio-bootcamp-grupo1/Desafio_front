@@ -1,0 +1,82 @@
+@use "../_variables" as *;
+
+.header2 {
+  background: linear-gradient(90deg, var(--coral), var(--coral-light));
+  color: var(--white);
+  position: relative;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 14px;
+    position: relative;
+    z-index: 10;
+  }
+
+  &__nav {
+    display: none;
+    gap: 10px;
+
+    @media (min-width: 860px) {
+      display: flex;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__nav-btn {
+    --bg: transparent;
+    --color: var(--white);
+    --border: rgba(255, 255, 255, 0.6);
+    opacity: 0.95;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    margin-left: auto; 
+  }
+
+  &__logout {
+    --color: var(--white);
+    --border: rgba(255, 255, 255, 0.6);
+  }
+
+  &__hamburger {
+    background: none;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    display: block;
+    margin-right: 16px;
+
+    @media (min-width: 860px) {
+      display: none;
+    }
+  }
+
+  &__mobile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 16px;
+    background: linear-gradient(90deg, var(--coral), var(--coral-light));
+    position: absolute;
+    top: 100%;
+    left: 0; 
+    width: auto;
+    min-width: 200px;
+    z-index: 5;
+    box-shadow: var(--shadow-soft);
+
+    .header2__nav-btn {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+}
