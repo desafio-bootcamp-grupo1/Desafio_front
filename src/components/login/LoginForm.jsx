@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "../../features/auth/authSlice";
 import "./login.scss";
@@ -6,6 +7,7 @@ import "./login.scss";
 export default function LoginForm({ onClose, openRegister }) {
   const dispatch = useDispatch();
   const error = useSelector((s) => s.auth.error);
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +17,10 @@ export default function LoginForm({ onClose, openRegister }) {
     e.preventDefault();
     const res = await dispatch(loginThunk({ email, password }));
     if (loginThunk.fulfilled.match(res)) {
+      const user = res.payload?.user;
       onClose();
+      if (user?.role === "manager") navigate("/manager");
+      else navigate("/driver");
     }
   };
 

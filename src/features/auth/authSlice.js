@@ -1,19 +1,18 @@
 // authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { api } from "@/lib/api";
-import { setAccessToken, clearAccessToken } from "@/lib/token";
+import { clearAccessToken } from "@/lib/token";
+import authService from "./authService";
 
 // Thunk para login
 export const loginThunk = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const { data } = await api.post("/auth/login", { email, password });
+      const data = await authService.login({ email, password });
       if (!data?.accessToken) throw new Error("NO_ACCESS");
-      setAccessToken(data.accessToken);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data || "LOGIN_FAIL");
+      return rejectWithValue(err?.response?.data || "LOGIN_FAIL");
     }
   }
 );
@@ -23,12 +22,11 @@ export const bootstrapSession = createAsyncThunk(
   "auth/bootstrapSession",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.post("/auth/refresh-token");
-      if (!data?.accessToken) throw new Error("NO_ACCESS");
-      setAccessToken(data.accessToken);
-      const meRes = await api.get("/users/me");
-      return meRes.data;
-    } catch (e) {
+      const refreshed = await authService.refreshToken();
+      if (!refreshed?.accessToken) throw new Error("NO_ACCESS");
+      const me = await authService.getMe();
+      return me;
+    } catch {
       clearAccessToken();
       return rejectWithValue("REFRESH_FAIL");
     }
@@ -70,7 +68,8 @@ const authSlice = createSlice({
       })
       // login
       .addCase(loginThunk.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.user = action.payload?.user ?? null;
+        state.error = null;
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.user = null;

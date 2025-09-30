@@ -6,7 +6,7 @@ const AUTH_PATHS = [/\/auth\/login\b/, /\/auth\/register\b/, /\/auth\/refresh-to
 const isAuthPath = (url) => Boolean(url) && AUTH_PATHS.some((re) => re.test(url));
 
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? "http://localhost:5000",
+  baseURL: import.meta.env.VITE_API_URL ?? "http://localhost:5001",
   withCredentials: true,
   timeout: 15000,
 });
@@ -28,7 +28,7 @@ api.interceptors.request.use((config) => {
 });
 
 const raw = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? "http://localhost:5000",
+  baseURL: import.meta.env.VITE_API_URL ?? "http://localhost:5001",
   withCredentials: true,
   timeout: 15000,
 });
