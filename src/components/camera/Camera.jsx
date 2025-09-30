@@ -3,6 +3,7 @@ import Webcam from 'react-webcam';
 import { toast } from 'react-hot-toast';
 import TicketValidator from '../utils/ticketValidator';
 import ReverseIcon from '../../svg/ReverseIcon';
+import Button from '../ui/Button';
 
 function Camera() {
   const [hasPermission, setHasPermission] = useState(false);
@@ -23,8 +24,8 @@ function Camera() {
           video: {
             facingMode: cameraFacingMode,
             width: { ideal: 1920 },
-            height: { ideal: 1080 }
-          }
+            height: { ideal: 1080 },
+          },
         });
         setHasPermission(true);
         console.log('✅ Permisos concedidos, cámara lista');
@@ -39,16 +40,11 @@ function Camera() {
   }, [cameraFacingMode]);
 
   const validarImagen = async (imageSrc) => {
-    if (validando) {
-      console.log('⏳ Validación ya en curso, ignorando nueva petición...');
-      return;
-    }
-
+    if (validando) return;
     console.log('🔍 Iniciando validación de imagen...');
     setValidando(true);
     setProgreso(0);
     setMensajeProgreso('🔍 Iniciando análisis...');
-
     try {
       const resultado = await TicketValidator.validarTicket(
         imageSrc,
@@ -58,24 +54,19 @@ function Camera() {
           setMensajeProgreso(m);
         }
       );
-
       console.log('📄 Resultado validación:', resultado);
-
       if (resultado.esTicket) {
         toast.success('✅ Ticket válido detectado!');
-        console.log('🎉 Ticket detectado como válido');
         setCapturedImage(imageSrc);
         setResultadoValidacion(resultado);
       } else {
         toast.error('❌ No se reconoce como ticket');
-        console.log('⚠️ Imagen no cumple con patrones de ticket');
         setCapturedImage(null);
         setResultadoValidacion(null);
       }
     } catch (error) {
       console.error('💥 Error procesando la imagen:', error);
       toast.error('Error procesando la imagen');
-      
       setCapturedImage(null);
       setResultadoValidacion(null);
     } finally {
@@ -89,22 +80,11 @@ function Camera() {
       toast.error('Cámara no disponible');
       return;
     }
-
-    const imageSrc = webcamRef.current.getScreenshot({
-      width: 1920,
-      height: 1080, 
-      quality: 1.0
-    });
-
+    const imageSrc = webcamRef.current.getScreenshot({ width: 1920, height: 1080, quality: 1.0 });
     console.log('📸 CAPTURANDO FOTO EN ALTA CALIDAD...');
-    
     if (imageSrc) {
       setCapturedImage(imageSrc);
-      
-      setTimeout(() => {
-        console.log('🖼️ PROCESANDO IMAGEN...');
-        validarImagen(imageSrc);
-      }, 800);
+      setTimeout(() => validarImagen(imageSrc), 800);
     } else {
       toast.error('Error al capturar la foto');
     }
@@ -116,11 +96,7 @@ function Camera() {
   };
 
   const procesarTicket = () => {
-    if (!capturedImage || !resultadoValidacion) {
-      console.warn('⚠️ No hay ticket capturado o validado para procesar');
-      return;
-    }
-
+    if (!capturedImage || !resultadoValidacion) return;
     console.log('💾 Procesando y guardando ticket...');
     const existing = JSON.parse(localStorage.getItem('ticketsProcesados') || '[]');
     const ticketData = {
@@ -132,8 +108,6 @@ function Camera() {
       patronesEncontrados: resultadoValidacion.coincidencias
     };
     localStorage.setItem('ticketsProcesados', JSON.stringify([ticketData, ...existing]));
-    console.log('✅ Ticket guardado en localStorage:', ticketData);
-
     toast.success('✅ Ticket procesado correctamente');
     setCapturedImage(null);
     setResultadoValidacion(null);
@@ -158,25 +132,18 @@ function Camera() {
       {capturedImage && resultadoValidacion?.esTicket ? (
         <div className="previewContainer">
           <img src={capturedImage} alt="Ticket detectado" className="capturedPhoto" />
-
           {resultadoValidacion && (
             <div className="ocrResult">
               <h4>📝 Texto extraído OCR:</h4>
               <pre>{resultadoValidacion.textoExtraido || '(Sin texto extraído)'}</pre>
               <div style={{ marginTop: '10px', fontSize: '14px', color: '#666' }}>
-                <strong>Confianza:</strong> {resultadoValidacion.confianza.toFixed(1)}% | 
-                <strong> Coincidencias:</strong> {resultadoValidacion.coincidencias}
+                <strong>Confianza:</strong> {resultadoValidacion.confianza.toFixed(1)}% | <strong> Coincidencias:</strong> {resultadoValidacion.coincidencias}
               </div>
             </div>
           )}
-
           <div className="actionButtons">
-            <button className="acceptButton" onClick={procesarTicket}>
-              ✅ Procesar Ticket
-            </button>
-            <button className="rejectButton" onClick={descartarTicket}>
-              ❌ Descartar
-            </button>
+            <Button variant="primary" size="md" onClick={procesarTicket}>✅ Procesar Ticket</Button>
+            <Button variant="light" size="md" onClick={descartarTicket}>❌ Descartar</Button>
           </div>
         </div>
       ) : (
@@ -188,27 +155,15 @@ function Camera() {
             screenshotQuality={1}
             mirrored={cameraFacingMode === 'user'}
             forceScreenshotSourceSize
-            videoConstraints={{
-              facingMode: cameraFacingMode,
-              width: { ideal: 1920 },
-              height: { ideal: 1080 }
-            }}
+            videoConstraints={{ facingMode: cameraFacingMode, width: { ideal: 1920 }, height: { ideal: 1080 } }}
             className="webcam"
           />
-
           <div className="overlay">
             <div className="bottomControls">
-              <button
-                className="captureButton"
-                onClick={capturePhoto}
-                disabled={validando}
-              />
-              <button onClick={toggleCamera} className="toggleButton">
-                <ReverseIcon />
-              </button>
+              <Button variant="primary" size="lg" onClick={capturePhoto} disabled={validando}>📸 Tomar Foto</Button>
+              <Button variant="light" size="lg" onClick={toggleCamera}><ReverseIcon /></Button>
             </div>
           </div>
-
           {validando && (
             <div className="modalProgress">
               <div className="loader"></div>

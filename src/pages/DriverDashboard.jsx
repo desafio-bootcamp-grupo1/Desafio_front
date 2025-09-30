@@ -152,7 +152,6 @@ export default function DriverDashboard() {
           </Card>
         </div>
 
-        {/* Resumen del mes */}
         <section className="driver-summary">
           <h3 className="driver-summary__title">
             <Fuel size={18} style={{ color: "var(--coral)" }} /> Resumen del mes
@@ -182,21 +181,18 @@ export default function DriverDashboard() {
           </div>
         </section>
 
-        {/* Gráficos */}
         <div className="driver-charts">
           <FuelChart data={litersByMonth} />
           <SavingsChart data={savingsByMonth} />
         </div>
 
-        {/* Tickets recientes y logros */}
         <div className="driver-lower">
           <RecentTickets tickets={recentTicketsData} />
           <AchievementsCard />
         </div>
-
-        {/* Footer */}
-        <Footer />
+  
       </section>
+      <Footer />
     </>
   );
 }

@@ -126,17 +126,22 @@ const EscanerPage = () => {
     if (!esTicket || !resultadoValidacion) return null;
 
     return (
-      <div style={{ marginTop: '15px', textAlign: 'center' }}>
-        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '10px' }}>
-          <button 
-            onClick={procesarTicket}
-            disabled={validando}
-            style={{ opacity: validando ? 0.6 : 1 }}
-          >
-            {validando ? '⏳ Añadiendo ticket...' : '📡 Añadir ticket'}
-          </button>
-          <button onClick={clearImage}>Descartar imagen</button>
-        </div>
+      <div className="ticket-action-buttons">
+        <button
+          onClick={procesarTicket}
+          disabled={validando}
+          className="addTicketButton"
+          style={{ opacity: validando ? 0.6 : 1 }}
+        >
+          {validando ? '⏳ Añadiendo ticket...' : ' Añadir ticket'}
+        </button>
+
+        <button
+          onClick={clearImage}
+          className="discardTicketButton"
+        >
+          Descartar imagen
+        </button>
       </div>
     );
   };
@@ -154,7 +159,7 @@ const EscanerPage = () => {
       <div className='escaner-page'>
         <div className='escaner-header'>
           <h1>Escanea tu ticket</h1>
-          <p>Utiliza la cámara para escanear automáticamente tickets de gasolina y registrar el gasto en tu historial</p>
+          <p>Utiliza la cámara para escanear  automáticamente tickets de gasolina o sube una imagen</p>
         </div>
 
         <input
@@ -171,15 +176,12 @@ const EscanerPage = () => {
             <img
               src={previewUrl}
               alt="Vista previa del ticket"
+              className="preview-ticket"
               style={{
-                maxWidth: '300px',
-                maxHeight: '400px',
-                border: `2px solid ${
-                  validando ? '#007bff' : 
-                  esTicket === true ? '#28a745' : 
+                borderColor:
+                  validando ? '#007bff' :
+                  esTicket === true ? '#28a745' :
                   esTicket === false ? '#dc3545' : '#ccc'
-                }`,
-                borderRadius: '10px'
               }}
             />
 
