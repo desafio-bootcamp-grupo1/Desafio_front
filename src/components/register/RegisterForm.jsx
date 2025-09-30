@@ -1,23 +1,70 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { registerThunk } from "@/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 import "./register.scss";
 
 export default function RegisterForm({ onClose, openLogin }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agree, setAgree] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    if (!agree) { alert("Debes aceptar la política de privacidad"); return; }
-    if (password !== confirmPassword) { alert("Las contraseñas no coinciden"); return; }
-    console.log({ firstName, lastName, email, role, password });
-    onClose();
+    
+    // Validations
+    if (!agree) { 
+      alert("Debes aceptar la política de privacidad"); 
+      return; 
+    }
+    if (password !== confirmPassword) { 
+      alert("Las contraseñas no coinciden"); 
+      return; 
+    }
+    if (password.length < 6) {
+      alert("La contraseña debe tener al menos 6 caracteres");
+      return;
+    }
+    if (!email.includes('@')) {
+      alert("Por favor, introduce un email válido");
+      return;
+    }
+    if (!firstName.trim() || !lastName.trim()) {
+      alert("Por favor, completa tu nombre y apellido");
+      return;
+    }
+    
+    try {
+      const username = `${firstName.trim()} ${lastName.trim()}`;
+      const result = await dispatch(registerThunk({ 
+        email: email.trim().toLowerCase(),
+        password,
+        username
+      })).unwrap();
+      
+      if (result?.user) {
+        onClose();
+        navigate('/driver');
+      } else {
+        throw new Error('No se recibieron los datos del usuario');
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      if (error.response?.status === 429) {
+        alert('Demasiados intentos. Por favor, espera un momento antes de intentar de nuevo.');
+      } else if (error.response?.data?.message) {
+        alert(error.response.data.message);
+      } else {
+        alert('Error al registrar usuario. Por favor, inténtalo de nuevo.');
+      }
+    }
   };
 
   const goToLogin = () => {

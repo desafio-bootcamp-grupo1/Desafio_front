@@ -3,6 +3,20 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { clearAccessToken } from "@/lib/token";
 import authService from "./authService";
 
+// Thunk para registro
+export const registerThunk = createAsyncThunk(
+  "auth/register",
+  async ({ email, password, username }, { rejectWithValue }) => {
+    try {
+      const data = await authService.register({ email, password, username });
+      if (!data?.accessToken) throw new Error("NO_ACCESS");
+      return data;
+    } catch (err) {
+      return rejectWithValue(err?.response?.data || "REGISTER_FAIL");
+    }
+  }
+);
+
 // Thunk para login
 export const loginThunk = createAsyncThunk(
   "auth/login",
@@ -74,6 +88,18 @@ const authSlice = createSlice({
       .addCase(loginThunk.rejected, (state, action) => {
         state.user = null;
         state.error = action.payload || "LOGIN_FAIL";
+      })
+      // register
+      .addCase(registerThunk.pending, (state) => {
+        state.error = null;
+      })
+      .addCase(registerThunk.fulfilled, (state, action) => {
+        state.user = action.payload?.user ?? null;
+        state.error = null;
+      })
+      .addCase(registerThunk.rejected, (state, action) => {
+        state.user = null;
+        state.error = action.payload || "REGISTER_FAIL";
       });
   },
 });
