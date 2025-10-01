@@ -11,6 +11,7 @@ import LoginForm from "../components/login/LoginForm";
 import RegisterForm from "../components/register/RegisterForm";
 import ConfirmEmailModal from "../components/common/ConfirmEmailModal";
 
+
 export default function Index() {
   const [modal, setModal] = useState(null);
 
@@ -44,6 +45,7 @@ export default function Index() {
       {modal === "confirm-email" && (
         <ConfirmEmailModal onClose={closeModal} onLogin={openLogin} />
       )}
+    
     </div>
   );
 }
