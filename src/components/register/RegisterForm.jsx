@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { registerThunk } from "@/features/auth/authSlice";
 import "./register.scss";
 
@@ -137,10 +138,12 @@ export default function RegisterForm({ onClose, openLogin }) {
             </button>
           </div>
 
-          <div className="privacy-field">
-            <label htmlFor="agree">Acepto la <span className="link">política de privacidad</span></label>
-            <input type="checkbox" id="agree" checked={agree} onChange={(e) => setAgree(e.target.checked)} />
-          </div>
+    <div className="privacy-field">
+  <label htmlFor="agree">
+    Acepto la <Link to="/privacy" className="link">política de privacidad</Link>
+  </label>
+  <input type="checkbox" id="agree" checked={agree} onChange={(e) => setAgree(e.target.checked)} />
+</div>
 
           <button type="submit" className="register-btn">Registrarse</button>
 

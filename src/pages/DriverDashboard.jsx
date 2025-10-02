@@ -5,14 +5,33 @@ import { useSelector } from "react-redux";
 import Footer from "../sections/Footer";
 import { Card, CardContent } from "../components/ui/Card";
 import StatCard from "../components/dashboard/StatCard";
-import FuelChart from "../components/driver/FuelChart";
-import SavingsChart from "../components/driver/SavingsChart";
 import RecentTickets from "../components/driver/RecentTickets";
 import AchievementsCard from "../components/driver/AchievementsCard";
 import HeaderDriver from "../components/header/Header";
 
 import { Ticket, Fuel, DollarSign, Droplet } from "lucide-react"; 
 import "../styles/components/_driver-dashboard.scss";
+
+// ChartJS imports
+import { Doughnut, Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+} from "chart.js";
+
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement
+);
 
 const monthSummary = {
   scans: 24,
@@ -31,12 +50,12 @@ const litersByMonth = [
 ];
 
 const savingsByMonth = [
-  { month: "Abr", spend: 420 },
-  { month: "May", spend: 380 },
-  { month: "Jun", spend: 410 },
-  { month: "Jul", spend: 395 },
-  { month: "Ago", spend: 360 },
-  { month: "Sep", spend: 340 },
+  { month: "Abr", spend: 420, saved: 80 },
+  { month: "May", spend: 380, saved: 50 },
+  { month: "Jun", spend: 410, saved: 70 },
+  { month: "Jul", spend: 395, saved: 60 },
+  { month: "Ago", spend: 360, saved: 40 },
+  { month: "Sep", spend: 340, saved: 30 },
 ];
 
 const recentTicketsData = [
@@ -47,7 +66,6 @@ const recentTicketsData = [
 export default function DriverDashboard() {
   const navigate = useNavigate();
   const driverProfile = useSelector((state) => state.driverProfile);
-
   const { vehicle } = driverProfile;
 
   const handleLogout = () => {
@@ -56,13 +74,51 @@ export default function DriverDashboard() {
     navigate("/login");
   };
 
+  const fuelChartData = {
+    labels: litersByMonth.map((d) => d.month),
+    datasets: [
+      {
+        label: "Litros consumidos",
+        data: litersByMonth.map((d) => d.liters),
+        backgroundColor: [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+          "#4BC0C0",
+          "#9966FF",
+          "#FF9F40",
+        ],
+        hoverOffset: 10,
+      },
+    ],
+  };
+
+  const savingsChartData = {
+    labels: savingsByMonth.map((d) => d.month),
+    datasets: [
+      {
+        label: "Gasto",
+        data: savingsByMonth.map((d) => d.spend),
+        backgroundColor: "#FF6384",
+      },
+      {
+        label: "Ahorro",
+        data: savingsByMonth.map((d) => d.saved),
+        backgroundColor: "#36A2EB",
+      },
+    ],
+  };
+
+  const chartOptions = {
+    maintainAspectRatio: false,
+    responsive: true,
+  };
+
   return (
     <>
-      {/* Header único */}
       <HeaderDriver onLogout={handleLogout} />
 
       <section className="container dashboard driver-dashboard">
-        {/* Header de sección */}
         <header className="dashboard__head">
           <div>
             <h1 className="dashboard__title">Driver Dashboard</h1>
@@ -72,17 +128,9 @@ export default function DriverDashboard() {
           </div>
         </header>
 
-        {/* Perfil del conductor */}
         <div className="driver-profile-section">
           <Card className="card driver-profile">
-            <CardContent
-              className="driver-profile__content"
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
+            <CardContent className="driver-profile__content">
               <div className="driver-info">
                 <h2 className="driver-profile__name">
                   {driverProfile.firstName} {driverProfile.lastName}
@@ -105,41 +153,15 @@ export default function DriverDashboard() {
           {vehicle && (
             <Card className="card vehicle-info-card" style={{ marginTop: "1.5rem" }}>
               <CardContent className="vehicle-info__content">
-                <h3
-                  className="vehicle-info__title"
-                  style={{ marginTop: "1rem", marginBottom: "0.8rem" }}
-                >
+                <h3 className="vehicle-info__title">
                   Información del vehículo
                 </h3>
-                <div
-                  className="vehicle-info__details"
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-                    gap: "1rem",
-                    marginTop: "0.5rem",
-                  }}
-                >
-                  <p>
-                    <strong style={{ color: "var(--coral)" }}>Marca:</strong>{" "}
-                    {vehicle.brand}
-                  </p>
-                  <p>
-                    <strong style={{ color: "var(--coral)" }}>Modelo:</strong>{" "}
-                    {vehicle.model}
-                  </p>
-                  <p>
-                    <strong style={{ color: "var(--coral)" }}>Año:</strong>{" "}
-                    {vehicle.year}
-                  </p>
-                  <p>
-                    <strong style={{ color: "var(--coral)" }}>Matrícula:</strong>{" "}
-                    {vehicle.plate}
-                  </p>
-                  <p>
-                    <strong style={{ color: "var(--coral)" }}>Combustible:</strong>{" "}
-                    {vehicle.fuelType}
-                  </p>
+                <div className="vehicle-info__details">
+                  <p><strong style={{ color: "var(--coral)" }}>Marca:</strong> {vehicle.brand}</p>
+                  <p><strong style={{ color: "var(--coral)" }}>Modelo:</strong> {vehicle.model}</p>
+                  <p><strong style={{ color: "var(--coral)" }}>Año:</strong> {vehicle.year}</p>
+                  <p><strong style={{ color: "var(--coral)" }}>Matrícula:</strong> {vehicle.plate}</p>
+                  <p><strong style={{ color: "var(--coral)" }}>Combustible:</strong> {vehicle.fuelType}</p>
                 </div>
               </CardContent>
             </Card>
@@ -176,8 +198,18 @@ export default function DriverDashboard() {
         </section>
 
         <div className="driver-charts">
-          <FuelChart data={litersByMonth} />
-          <SavingsChart data={savingsByMonth} />
+          <Card className="chart-card">
+            <CardContent className="chart-content">
+              <h4 className="chart-title">Litros por mes</h4>
+              <Doughnut data={fuelChartData} options={chartOptions} />
+            </CardContent>
+          </Card>
+          <Card className="chart-card">
+            <CardContent className="chart-content">
+              <h4 className="chart-title">Gasto / Ahorro por mes</h4>
+              <Bar data={savingsChartData} options={chartOptions} />
+            </CardContent>
+          </Card>
         </div>
 
         <div className="driver-lower">

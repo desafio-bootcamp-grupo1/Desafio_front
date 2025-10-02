@@ -9,6 +9,7 @@ import Camera from "./components/camera/Camera";
 import CookiesPage from "./pages/Cookies";
 import { Toaster } from "react-hot-toast";
 import CookiePopup from "./components/common/CookiesPopup";
+import PrivacyPage from "./pages/PrivacyPolitics";
 import "./styles/base.scss";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/app/" element={<EscanerPage />} />
           <Route path="/app/camera" element={<Camera />} />
           <Route path="/cookies" element={<CookiesPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
         </Routes>
         <CookiePopup />
       </Router>
