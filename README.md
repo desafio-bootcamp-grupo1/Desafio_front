@@ -453,4 +453,4 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 - ✅ **Sistema de seguridad** robusto y escalable
 - ✅ **UX/UI optimizada** basada en research
 
-</div>
+</div># Desafio_front
