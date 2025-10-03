@@ -132,14 +132,7 @@ export default function ManagerProfile() {
               <Mail size={16} />
               {userData.email}
             </p>
-            <div className="usuario-meta">
-              Rol:
-              <div className="meta-item">
-                {user?.role?.toUpperCase() || 'USER'}
 
-              </div>
-
-            </div>
           </div>
         </div>
 
@@ -164,7 +157,6 @@ export default function ManagerProfile() {
                   pattern="[a-zA-Z0-9_]+"
                   title="Solo letras, números y _"
                 />
-                <small className="campo-hint">3-20 caracteres, solo letras, números y _</small>
               </div>
 
               <div className="campo">
@@ -178,7 +170,6 @@ export default function ManagerProfile() {
                   placeholder="Tu nombre completo"
                   maxLength="60"
                 />
-                <small className="campo-hint">Máximo 60 caracteres</small>
               </div>
 
 
@@ -187,6 +178,7 @@ export default function ManagerProfile() {
               className={`btn ${isEditing ? 'btn--secondary' : 'btn--primary'}`}
               onClick={() => setIsEditing(!isEditing)}
               type="button"
+              style={{ margin: '20px 0px' }}
             >
               <Edit3 size={16} />
               {isEditing ? 'Cancelar' : 'Editar Perfil'}

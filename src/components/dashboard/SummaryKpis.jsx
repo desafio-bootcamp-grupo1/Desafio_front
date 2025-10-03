@@ -4,10 +4,10 @@ import { Leaf, MapPin, DollarSign, TrendingUp } from "lucide-react";
 
 export default function SummaryKpis({ stats }) {
   const items = [
-    { icon: Leaf,       title: stats.co2Reduction,  label: "CO2 Reducido este mes",   className: "kpi--green"  },
-    { icon: MapPin,     title: stats.totalDistance, label: "Distancia Total",         className: "kpi--blue"   },
-    { icon: DollarSign, title: stats.fuelSavings,   label: "Ahorro en Combustible",   className: "kpi--coral"  },
-    { icon: TrendingUp, title: stats.efficiency,    label: "Eficiencia Global",       className: "kpi--purple" },
+    { icon: Leaf,       title: '134kg',  label: "CO2 Reducido este mes",   className: "kpi--green"  },
+    { icon: MapPin,     title: '1203kms', label: "Distancia Total",         className: "kpi--blue"   },
+    { icon: DollarSign, title: '302.5L',   label: "Ahorro en Combustible",   className: "kpi--coral"  },
+    { icon: TrendingUp, title: "89%",    label: "Eficiencia Global",       className: "kpi--purple" },
   ];
 
   return (
