@@ -5,6 +5,7 @@ import ManagerProfile from "./pages/ManagerProfile";
 import ManagerDashboard from "./pages/ManagerDashboard";
 import DriverDashboard from "./pages/DriverDashboard";
 import CookiesPage from "./pages/Cookies";
+import PrivacyPage from "./pages/PrivacyPolitics";
 import { Toaster } from "react-hot-toast";
 import CookiePopup from "./components/common/CookiesPopup";
 import PrivateRoute from "./components/PrivateRoute";
@@ -21,6 +22,7 @@ function App() {
           {/* Rutas públicas */}
           <Route path="/" element={<Index />} />
           <Route path="/cookies" element={<CookiesPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
 
           {/* Rutas protegidas - todas bajo /app/ */}
           <Route 

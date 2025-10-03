@@ -67,15 +67,37 @@
     }
   }
 
-  .driver-charts { 
-    display: grid; 
-    gap: 16px; 
-    margin-bottom: 20px; 
-    grid-template-columns: 1fr; 
+  .driver-charts {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 20px;
+    grid-template-columns: 1fr;
 
-    @media (min-width: 1080px) { 
-      grid-template-columns: 1fr 1fr; 
-    } 
+    @media (min-width: 1080px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .chart-card {
+      width: 100%;
+
+      .chart-content {
+        position: relative; 
+        height: 300px; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+      }
+
+      canvas {
+        flex: 1 1 auto; 
+        width: 90% !important;
+        height: 90% !important;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain; /* asegura que no sobresalga */
+      }
+    }
   }
 
   .driver-lower { 
