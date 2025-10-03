@@ -4,7 +4,7 @@
   background-color: var(--box-color);
   padding: 20px;
   border-radius: 20px;
- box-shadow: 0 8px 20px rgba(255, 127, 80, 0.5);
+  box-shadow: 0 8px 20px rgba(255, 127, 80, 0.5);
   border: 1px solid var(--box-color);
 }
 
@@ -21,6 +21,7 @@
   align-items: center;
   gap: 10px;
   font-family: var(--font-family);
+
 
   button {
     padding: 15px 25px;
@@ -52,6 +53,25 @@
       color: #fff;
     }
   }
+}
+
+
+.preview-actions{
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.validating-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(71, 71, 71, 0.205);
+  padding: 20px;
+  color: white;
+  border-radius: 20px;
 }
 
 /* Botones de acción sobre ticket validado */

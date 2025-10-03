@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserTickets, fetchTicketById } from "@/features/tickets/ticketsSlice";
 import { Card, CardContent } from "../ui/Card";
 import { Eye, Fuel, Zap, MapPin, Calendar, Euro, X, List, ChevronRight } from "lucide-react";
+import { LoadingCar } from "../common/LoadingCar";
 
 const TicketsList = () => {
   const dispatch = useDispatch();
@@ -279,7 +280,7 @@ const TicketsList = () => {
         <CardContent style={{ padding: 0 }}>
           {tickets.loading ? (
             <div style={{ padding: '2rem', textAlign: 'center' }}>
-              <p>Cargando tickets...</p>
+              <LoadingCar />
             </div>
           ) : tickets.error ? (
             <div style={{ padding: '2rem', textAlign: 'center' }}>

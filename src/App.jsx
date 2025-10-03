@@ -47,6 +47,7 @@ function App() {
             } 
           />
 
+          {/* Esta ruta debe ir AL FINAL para no capturar otras rutas */}
           <Route 
             path="/app/*" 
             element={

@@ -66,7 +66,7 @@ const ScanTicketModal = ({ onClose }) => {
         fecha: new Date()
       })).unwrap();
 
-      toast.success('✅ Ticket guardado correctamente en el servidor');
+      toast.success('Ticket guardado correctamente en el servidor');
       onClose();
     } catch (error) {
       console.error('Error guardando ticket:', error);
@@ -192,7 +192,7 @@ const ScanTicketModal = ({ onClose }) => {
                 className="btn-primary "
                 style={{ opacity: (creating || validando) ? 0.6 : 1 }}
               >
-                {creating ? '⏳ Enviando al servidor...' : '💾 Guardar Ticket'}
+                {creating ? '⏳ Enviando al servidor...' : 'Guardar Ticket'}
               </button>
               
               <button
@@ -200,7 +200,7 @@ const ScanTicketModal = ({ onClose }) => {
                 disabled={creating || validando}
                 className="btn-secondary"
               >
-                🔄 Tomar otra foto
+                Tomar otra foto
               </button>
             </div>
           </>

@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { X, Calendar, Euro, MapPin, Fuel, Receipt } from "lucide-react";
 import { fetchUserTicketsByUserId } from "@/features/tickets/ticketsSlice";
+import { LoadingCar } from "./common/LoadingCar";
 
 export default function UserTicketsModal({ isOpen, onClose, user }) {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ export default function UserTicketsModal({ isOpen, onClose, user }) {
         <div className="modal-body">
           {userTickets.loading ? (
             <div className="loading-state">
-              <p>Cargando tickets...</p>
+              <LoadingCar />
             </div>
           ) : userTickets.error ? (
             <div className="error-state">

@@ -5,8 +5,8 @@ import ScanTicketModal from "../components/ScanerTicketModal";
 import Footer from "../sections/Footer";
 import { Card, CardContent } from "../components/ui/Card";
 import StatCard from "../components/dashboard/StatCard";
-import FuelChart from "../components/driver/FuelChart";
-import SavingsChart from "../components/driver/SavingsChart";
+import { FuelChart } from "../components/driver/FuelChart";
+import {SavingsChart} from "../components/driver/SavingsChart";
 import RecentTickets from "../components/driver/RecentTickets";
 import AchievementsCard from "../components/driver/AchievementsCard";
 import HeaderDriver from "../components/header/Header";
@@ -277,11 +277,7 @@ export default function DriverDashboard() {
               label="Gasto en eléctrico"
               value={monthSummary.electricSpent}
             />
-            <StatCard
-              icon={(props) => <MapPin {...props} style={{ color: "var(--coral)" }} />}
-              label="Gasto en peajes"
-              value={monthSummary.tollsSpent}
-            />
+
             <StatCard
               icon={(props) => <DollarSign {...props} style={{ color: "var(--coral)" }} />}
               label="Total gastado"
@@ -322,11 +318,6 @@ export default function DriverDashboard() {
               icon={(props) => <Zap {...props} style={{ color: "var(--coral)" }} />}
               label="Gasto en eléctrico"
               value={yearSummary.electricSpent}
-            />
-            <StatCard
-              icon={(props) => <MapPin {...props} style={{ color: "var(--coral)" }} />}
-              label="Gasto en peajes"
-              value={yearSummary.tollsSpent}
             />
             <StatCard
               icon={(props) => <DollarSign {...props} style={{ color: "var(--coral)" }} />}
