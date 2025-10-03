@@ -5,7 +5,7 @@ import TicketValidator from '../utils/ticketValidator';
 import ReverseIcon from '../../svg/ReverseIcon';
 import Button from '../ui/Button';
 
-function Camera() {
+function Camera({ onTicketProcessed, onClose, embedded = false }) {
   const [hasPermission, setHasPermission] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
   const [cameraFacingMode, setCameraFacingMode] = useState('environment');
@@ -109,8 +109,13 @@ function Camera() {
     };
     localStorage.setItem('ticketsProcesados', JSON.stringify([ticketData, ...existing]));
     toast.success('✅ Ticket procesado correctamente');
-    setCapturedImage(null);
-    setResultadoValidacion(null);
+    
+    if (onTicketProcessed) {
+      onTicketProcessed();
+    } else {
+      setCapturedImage(null);
+      setResultadoValidacion(null);
+    }
   };
 
   const descartarTicket = () => {
@@ -123,6 +128,11 @@ function Camera() {
     return (
       <div className="fullscreenContainer">
         <p className="message">Esperando permiso para acceder a la cámara...</p>
+        {embedded && (
+          <button onClick={onClose} className="option-btn secondary">
+            Cancelar
+          </button>
+        )}
       </div>
     );
   }
@@ -132,18 +142,12 @@ function Camera() {
       {capturedImage && resultadoValidacion?.esTicket ? (
         <div className="previewContainer">
           <img src={capturedImage} alt="Ticket detectado" className="capturedPhoto" />
-          {resultadoValidacion && (
-            <div className="ocrResult">
-              <h4>📝 Texto extraído OCR:</h4>
-              <pre>{resultadoValidacion.textoExtraido || '(Sin texto extraído)'}</pre>
-              <div style={{ marginTop: '10px', fontSize: '14px', color: '#666' }}>
-                <strong>Confianza:</strong> {resultadoValidacion.confianza.toFixed(1)}% | <strong> Coincidencias:</strong> {resultadoValidacion.coincidencias}
-              </div>
-            </div>
-          )}
           <div className="actionButtons">
             <Button variant="primary" size="md" onClick={procesarTicket}>✅ Procesar Ticket</Button>
             <Button variant="light" size="md" onClick={descartarTicket}>❌ Descartar</Button>
+            {embedded && (
+              <Button variant="light" size="md" onClick={onClose}>Cancelar</Button>
+            )}
           </div>
         </div>
       ) : (
@@ -162,15 +166,14 @@ function Camera() {
             <div className="bottomControls">
               <Button variant="primary" size="lg" onClick={capturePhoto} disabled={validando}>📸 Tomar Foto</Button>
               <Button variant="light" size="lg" onClick={toggleCamera}><ReverseIcon /></Button>
+
             </div>
           </div>
           {validando && (
             <div className="modalProgress">
               <div className="loader"></div>
-              <h3>🔍 Escaneando Ticket...</h3>
+              <h3>Escaneando Ticket...</h3>
               <p>{mensajeProgreso}</p>
-              <progress value={progreso} max="100" />
-              <div>{progreso}% completado</div>
             </div>
           )}
         </>

@@ -14,9 +14,9 @@ export default function AchievementsCard() {
         <CardTitle>Logros</CardTitle>
       </CardHeader>
       <CardContent>
-        <ul className="achievements">
+        <ul className="achievements" style={{ listStyle: 'none', padding: 0, margin: 0, textAlign: 'left' }}>
           {achievements.map(a => (
-            <li key={a.id} className={`achievement ${a.earned ? "achievement--done" : ""}`}>
+            <li style={{padding: '0.5rem 1rem', borderBottom: '1px solid #eee'}} key={a.id} className={`achievement ${a.earned ? "achievement--done" : ""}`}>
               <div className="achievement__meta">
                 <div className="achievement__title">{a.title}</div>
                 <div className="achievement__subtitle">{a.subtitle}</div>

@@ -19,8 +19,8 @@ export default function LoginForm({ onClose, openRegister }) {
     if (loginThunk.fulfilled.match(res)) {
       const user = res.payload?.user;
       onClose();
-      if (user?.role === "manager") navigate("/manager");
-      else navigate("/driver");
+      if (user?.role === "manager") navigate("/app/driver");
+      else navigate("/app/driver");
     }
   };
 
