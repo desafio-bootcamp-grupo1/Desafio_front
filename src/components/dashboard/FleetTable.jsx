@@ -17,8 +17,6 @@ export default function FleetTable({ rows }) {
               <th>Vehículo</th>
               <th>Estado</th>
               <th>Ubicación</th>
-              <th>Combustible</th>
-              <th>Velocidad</th>
             </tr>
           </thead>
           <tbody>
@@ -27,18 +25,11 @@ export default function FleetTable({ rows }) {
                 <td>{r.driver}</td>
                 <td>{r.vehicle}</td>
                 <td>
-                  <span className={`badge badge--${r.status === "En ruta" ? "green" : r.status === "Parado" ? "yellow" : "gray"}`}>
+                  <span className={`badge badge--${r.status === "Activo" ? "green" : r.status === "Parado" ? "yellow" : "gray"}`}>
                     {r.status}
                   </span>
                 </td>
-                <td className="fleet-table__location">{r.location}</td>
-                <td>
-                  <div className="progress">
-                    <div className={`progress__bar progress__bar--${r.fuel > 50 ? "green" : r.fuel > 25 ? "yellow" : "red"}`} style={{ width: `${r.fuel}%` }} />
-                  </div>
-                  <span className="progress__value">{r.fuel}%</span>
-                </td>
-                <td className={`speed ${r.speed > 0 ? "speed--active" : ""}`}>{r.speed} km/h</td>
+                <td className="fleet-table__location">Bilbao, España</td>
               </tr>
             ))}
           </tbody>

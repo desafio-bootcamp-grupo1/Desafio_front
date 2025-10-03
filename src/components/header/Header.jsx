@@ -21,8 +21,8 @@ export default function HeaderDriver({ onLogout, userType = 'driver' }) {
     return () => window.removeEventListener("resize", handleResize);
   }, [mobileMenuOpen]);
 
-  const goToDashboard = () => navigate(`/${userType}`);
-  const goToProfile = () => navigate(`/${userType}/profile`);
+  const goToDashboard = () => navigate(`/app/driver`);
+  const goToProfile = () => navigate(`/app/profile`);
   const handleLogout = () => {
     dispatch(logoutThunk()).finally(() => {
       if (onLogout) onLogout();

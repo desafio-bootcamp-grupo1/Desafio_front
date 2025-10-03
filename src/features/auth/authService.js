@@ -9,7 +9,7 @@ export async function register({ email, password, username }) {
       email,
       password,
       username,
-      role: "driver", // All users are drivers by default
+      role: "driver",
     });
     
     const { data } = response;
@@ -17,7 +17,7 @@ export async function register({ email, password, username }) {
     if (!data.accessToken) throw new Error("No access token received");
     
     setAccessToken(data.accessToken);
-    return data; // { user, accessToken }
+    return data;
   } catch (error) {
     console.error('Registration error:', error.response?.data || error.message);
     throw error;
@@ -27,13 +27,13 @@ export async function register({ email, password, username }) {
 export async function login({ email, password }) {
   const { data } = await api.post("/auth/login", { email, password });
   if (data?.accessToken) setAccessToken(data.accessToken);
-  return data; // { user, accessToken }
+  return data;
 }
 
 export async function refreshToken() {
   const { data } = await api.post("/auth/refresh-token");
   if (data?.accessToken) setAccessToken(data.accessToken);
-  return data; // { accessToken }
+  return data;
 }
 
 export async function logout() {
@@ -46,10 +46,22 @@ export async function logout() {
 
 export async function getMe() {
   const { data } = await api.get("/users/me");
-  return data; // user
+  return data;
+}
+export async function updateUserProfile(userData) {
+  try {
+    const response = await api.patch("/users/me", userData);
+    const { data } = response;
+    if (!data) throw new Error("No data received from server");
+    return data;
+  } catch (error) {
+    console.error('Update user error:', error.response?.data || error.message);
+    throw error;
+  }
 }
 
-const authService = { register, login, refreshToken, logout, getMe };
+
+const authService = { register, login, refreshToken, logout, getMe, updateUserProfile };
 export default authService;
 
 

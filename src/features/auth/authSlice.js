@@ -1,6 +1,6 @@
-// authSlice.js
+// features/auth/authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { clearAccessToken } from "@/lib/token";
+import { clearAccessToken, setAccessToken } from "@/lib/token";
 import authService from "./authService";
 
 // Thunk para registro
@@ -20,8 +20,15 @@ export const registerThunk = createAsyncThunk(
 // Thunk para logout
 export const logoutThunk = createAsyncThunk(
   "auth/logout",
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, getState }) => {
     try {
+      const state = getState();
+      const token = state.auth.user?.accessToken;
+
+      if (token) {
+        setAccessToken(token);
+      }
+
       await authService.logout();
       return true;
     } catch (err) {
@@ -46,7 +53,7 @@ export const loginThunk = createAsyncThunk(
   }
 );
 
-// Thunk para bootstrapSession (ya lo tenías)
+// Thunk para bootstrapSession
 export const bootstrapSession = createAsyncThunk(
   "auth/bootstrapSession",
   async (_, { rejectWithValue }) => {
@@ -62,10 +69,25 @@ export const bootstrapSession = createAsyncThunk(
   }
 );
 
+// NUEVO: Thunk para actualizar perfil - FALTABA ESTE
+export const updateUserProfileThunk = createAsyncThunk(
+  "auth/updateProfile",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const data = await authService.updateUserProfile(userData);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err?.response?.data || "UPDATE_PROFILE_FAIL");
+    }
+  }
+);
+
 const initialState = {
   ready: false,
   user: null,
   error: null,
+  updating: false, // NUEVO: estado para actualización
+  updateError: null, // NUEVO: error específico de actualización
 };
 
 const authSlice = createSlice({
@@ -76,7 +98,12 @@ const authSlice = createSlice({
       state.user = null;
       state.ready = true;
       state.error = null;
+      state.updating = false;
+      state.updateError = null;
       clearAccessToken();
+    },
+    clearUpdateError(state) {
+      state.updateError = null;
     },
   },
   extraReducers: (builder) => {
@@ -98,6 +125,9 @@ const authSlice = createSlice({
       // login
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.user = action.payload?.user ?? null;
+        if (action.payload?.accessToken && state.user) {
+          state.user.accessToken = action.payload.accessToken;
+        }
         state.error = null;
       })
       .addCase(loginThunk.rejected, (state, action) => {
@@ -110,6 +140,10 @@ const authSlice = createSlice({
       })
       .addCase(registerThunk.fulfilled, (state, action) => {
         state.user = action.payload?.user ?? null;
+
+        if (action.payload?.accessToken && state.user) {
+          state.user.accessToken = action.payload.accessToken;
+        }
         state.error = null;
       })
       .addCase(registerThunk.rejected, (state, action) => {
@@ -125,9 +159,23 @@ const authSlice = createSlice({
       .addCase(logoutThunk.rejected, (state) => {
         state.user = null;
         clearAccessToken();
+      })
+      // NUEVO: updateUserProfileThunk
+      .addCase(updateUserProfileThunk.pending, (state) => {
+        state.updating = true;
+        state.updateError = null;
+      })
+      .addCase(updateUserProfileThunk.fulfilled, (state, action) => {
+        state.updating = false;
+        state.user = { ...state.user, ...action.payload };
+        state.updateError = null;
+      })
+      .addCase(updateUserProfileThunk.rejected, (state, action) => {
+        state.updating = false;
+        state.updateError = action.payload;
       });
   },
 });
 
-export const { authHardLogout } = authSlice.actions;
+export const { authHardLogout, clearUpdateError } = authSlice.actions;
 export default authSlice.reducer;

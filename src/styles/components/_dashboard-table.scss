@@ -40,8 +40,8 @@
     .progress__bar--yellow { background: #f59e0b; }
     .progress__bar--red    { background: #ef4444; }
     .progress__value { font-size: .85rem; color: var(--gray-700); }
-
-    .fleet-table__location { color: var(--gray-500); }
+    .fleet-table__body{overflow: auto;}
+    .fleet-table__location { color: var(--gray-500); text-wrap: nowrap; }
     .speed { color: var(--gray-500); }
     .speed--active { color: #e46c5f; }
 }
